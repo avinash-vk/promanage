@@ -5,7 +5,7 @@ import ROUTES from "./routes";
 import Dashboard from "./pages/Dashboard";
 import CreateProject from "./pages/CreateProject";
 import Project from "./pages/Project";
-import Sidebar from "./components/Sidebar";
+import SignedInLayout from "./layout/SignedInLayout";
 
 function App() {
   let routes = (
@@ -19,8 +19,9 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Sidebar />
-      {routes}
+      <SignedInLayout >
+        {routes}
+      </SignedInLayout>
     </BrowserRouter>
   );
 }
