@@ -5,6 +5,7 @@ import ROUTES from "./routes";
 import Dashboard from "./pages/Dashboard";
 import CreateProject from "./pages/CreateProject";
 import Project from "./pages/Project";
+import Sidebar from "./components/Sidebar";
 
 function App() {
   let routes = (
@@ -18,6 +19,7 @@ function App() {
 
   return (
     <BrowserRouter>
+      <Sidebar />
       {routes}
     </BrowserRouter>
   );
