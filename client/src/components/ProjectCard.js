@@ -11,15 +11,20 @@ import AvatarGroup from '@material-ui/lab/AvatarGroup';
 import {Share2} from 'react-feather';
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 250,
+    maxWidth: 350,
+    maxHeight: 350,
+    padding: 15,
     borderRadius:20,
     zIndex: 2,
     boxShadow: "1px 2px 10px rgba(0,0,0,0.25)",
-    flex:1
+    flex:1,
   },
   small: {
     width: theme.spacing(3),
     height: theme.spacing(3),
+  },
+  font: {
+    fontFamily:"Poppins",
   },
   row :{
       flexDirection:"row",
@@ -42,11 +47,12 @@ export default function ProjectCard() {
         action={<div style={{ borderRadius: 100, backgroundColor: "#FF9696",padding:5,fontSize:10,color:"white"}}>
         IN PROGRESS{" "}
       </div>}
-        title="Meraki"
-        titleTypographyProps={{fontFamily: "Poppins",fontWeight:"500"}}
-      />
+       title="Meraki"
+       titleTypographyProps={{fontFamily:"Poppins"}}
+      > 
+      </CardHeader>
       <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p" fontFamily="Poppins">
+        <Typography variant="body2" color="textSecondary" component="p" className={classes.font}>
           An job finding application through stories for the less fortunate in
           order to bridge gaps between jobs and the jobless.
         </Typography>

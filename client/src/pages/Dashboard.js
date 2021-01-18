@@ -109,8 +109,8 @@ export default function Dashboard() {
             }
           }}
         >
-          <Tab label={<span style={{ color: (value==0)?'black':'grey',textTransform:"capitalize",fontWeight:"bold" }}>Projects</span>} {...a11yProps(0)} />
-          <Tab label={<span style={{ color: (value==1)?'black':'grey',textTransform:"capitalize",fontWeight:"bold" }}>Boards</span>} {...a11yProps(1)} />
+          <Tab label={<span style={{ color: (value==0)?'black':'grey',textTransform:"capitalize",fontWeight:"bold",fontSize:20 }}>Projects</span>} {...a11yProps(0)} />
+          <Tab label={<span style={{ color: (value==1)?'black':'grey',textTransform:"capitalize",fontWeight:"bold",fontSize:20  }}>Boards</span>} {...a11yProps(1)} />
         </Tabs>
         </div>
         <div style = {{display:"flex",flexDirection:"row",marginLeft:"auto"}}>
