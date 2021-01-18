@@ -55,11 +55,11 @@ export default function ProjectCard() {
         <IconButton aria-label="share" >
         <Share2 color="#000" size={20} />
         </IconButton>
-        <AvatarGroup>
-                        <Avatar alt="Remy Sharp" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D" className={classes.small}/>
-                        <Avatar alt="Travis Howard" src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fHBlb3BsZXxlbnwwfHwwfA%3D%3D" className={classes.small}/>
-                        <Avatar alt="Cindy Baker" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTJ8fHBlb3BsZXxlbnwwfHwwfA%3D%3D" className={classes.small}/>
-        </AvatarGroup>
+          <AvatarGroup style={{marginLeft:"auto"}}>
+            <Avatar alt="Remy Sharp" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D" className={classes.small}/>
+            <Avatar alt="Travis Howard" src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fHBlb3BsZXxlbnwwfHwwfA%3D%3D" className={classes.small}/>
+            <Avatar alt="Cindy Baker" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTJ8fHBlb3BsZXxlbnwwfHwwfA%3D%3D" className={classes.small}/>
+          </AvatarGroup>
       </CardActions>
     </Card>
   );
