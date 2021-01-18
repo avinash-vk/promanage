@@ -6,9 +6,9 @@ import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import ShareIcon from "@material-ui/icons/Share";
 import Avatar from '@material-ui/core/Avatar';
 import AvatarGroup from '@material-ui/lab/AvatarGroup';
+import {Share2} from 'react-feather';
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 250,
@@ -53,7 +53,7 @@ export default function ProjectCard() {
       </CardContent>
       <CardActions >
         <IconButton aria-label="share" >
-          <ShareIcon />
+        <Share2 color="#000" size={20} />
         </IconButton>
         <AvatarGroup>
                         <Avatar alt="Remy Sharp" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D" className={classes.small}/>
