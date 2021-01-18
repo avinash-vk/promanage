@@ -97,7 +97,6 @@ export default function Dashboard() {
   ]
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="default">
           <Toolbar>
               <div style={{width:'50%'}}>
         <Tabs
@@ -114,12 +113,13 @@ export default function Dashboard() {
           <Tab label={<span style={{ color: (value==1)?'black':'grey',textTransform:"capitalize",fontWeight:"bold" }}>Boards</span>} {...a11yProps(1)} />
         </Tabs>
         </div>
+        <div style = {{display:"flex",flexDirection:"row",marginLeft:"auto"}}>
            <SearchAppBar />
-            <ColorButton style={{flexDirection:"column",float:"right",marginRight:0}} variant="contained" color="primary"  onClick={handleStartProject} className={classes.button}>
+            <ColorButton variant="contained" color="primary"  onClick={handleStartProject} className={classes.button}>
                 Start a project
             </ColorButton>
+        </div>
       </Toolbar>
-      </AppBar>
       <SwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
         index={value}
