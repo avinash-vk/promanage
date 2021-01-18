@@ -14,8 +14,6 @@ const Logo = () => {
 
 const sidebarStyles = makeStyles(() => ({
     root: {
-        flex: "0.2",
-        flexDirection:"row",
         display:"flex",
         color: "#FFF",
         transition: "850ms",

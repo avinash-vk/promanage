@@ -9,14 +9,17 @@ const useStyles = makeStyles(() => ({
     overflowY: "auto",
     display:"flex",
     flex:1,
-    backgroundColor:"#FFF"
+    backgroundColor:"#F5F5F5"
   },
   sidebar: {
+    width:100,
     height: "100%",
-    backgroundColor:"#FFF"
+    overflow: "hidden",
+    position:"fixed"
   },
   fullHeight:{
     height:"100vh",
+    overflow: "hidden"
   }
 }));
 
@@ -24,12 +27,9 @@ const SignedInLayout = ({ children }) => {
   const classes = useStyles();
   return (
     <Grid container className={classes.fullHeight}>
-      <Grid item xs={0.5} className={classes.sidebar}>
-        <Sidebar />
-      </Grid>
+      <Sidebar />
       <Grid
         item
-        xs={11.5}
         className={classes.container}>
         {children}
       </Grid>
