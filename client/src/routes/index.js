@@ -1,5 +1,5 @@
 export default {
     dashboard: "/",
-    createProject:"/create",
+    createProject:"/project/create",
     project:"/project/id", //:id
 }
