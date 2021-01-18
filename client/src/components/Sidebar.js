@@ -18,6 +18,19 @@ const sidebarStyles = makeStyles(() => ({
         color: "#FFF",
         transition: "850ms",
         height: "100%",
+    },
+    listItem: {
+        marginTop:8,
+        "&:hover":{
+            cursor:"pointer",
+        }
+    },
+    listItemBottom:{
+        "&:hover":{
+            cursor:"pointer",
+        },
+        position:"absolute",
+        bottom:40
     }
 }))
 
@@ -27,19 +40,19 @@ const Sidebar = () => {
         <div className = {classes.root}>
             <List style = {{ height:"100%" }}>
                 <Logo />
-                <ListItem>
+                <ListItem className={classes.listItem}>
                     <Home color="#000" size={36} />
                 </ListItem>
-                <ListItem>
+                <ListItem className={classes.listItem}>
                     <Info color="#000" size={36} />
                 </ListItem>
-                <ListItem>
+                <ListItem className={classes.listItem}>
                     <Settings color="#000" size={36} />
                 </ListItem>
-                <ListItem>
+                <ListItem className={classes.listItem}>
                     <Avatar src="https://images.unsplash.com/photo-1610767540785-96b4c65de306" alt="You" />
                 </ListItem>
-                <ListItem>
+                <ListItem className={classes.listItemBottom}>
                     <LogOut color="#FF8400" size={36} />
                 </ListItem>
             </List>
