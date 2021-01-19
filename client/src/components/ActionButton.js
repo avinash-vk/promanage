@@ -11,7 +11,7 @@ const useStyles = makeStyles(()=>({
         justifyContent:'center',
         borderRadius:10,
         border:"1px solid transparent",
-        margin:8,
+        margin:20,
         '&:hover':{
             cursor:'pointer',
             border:"1px solid #FF8400"
@@ -19,11 +19,12 @@ const useStyles = makeStyles(()=>({
     }
 }))
 
-const ActionButton = ({children}) => {
+const ActionButton = ({children,handleClick}) => {
     const classes = useStyles();
     return (
         <Card 
             className={classes.root}
+            onClick={handleClick}
         >
             {children}
         </Card>
