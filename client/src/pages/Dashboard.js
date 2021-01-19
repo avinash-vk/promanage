@@ -1,17 +1,21 @@
 import React from 'react';
+import ROUTES from '../routes';
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
 import { makeStyles, useTheme,withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import Toolbar from '@material-ui/core/Toolbar';
+import {
+  Tabs,
+  Tab,
+  Box,
+  Typography,
+  Button,
+  Toolbar,
+  Grid
+} from '@material-ui/core';
 import SearchAppBar from '../components/Searchbar.js';
-import Grid from '@material-ui/core/Grid';
-import ProjectCard from '..//components/ProjectCard.js'
+import ProjectCard from '../components/ProjectCard.js'
+import { useHistory } from 'react-router-dom';
+
 const ColorButton = withStyles(() => ({
   root: {
     color: 'white',
@@ -74,6 +78,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Dashboard() {
   const classes = useStyles();
   const theme = useTheme();
+  const history = useHistory();
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -84,7 +89,7 @@ export default function Dashboard() {
     setValue(index);
   };
   const handleStartProject = () => {
-      alert("Wehoooo");
+      history.push(ROUTES.createProject);
   }
   const data =[
     {
