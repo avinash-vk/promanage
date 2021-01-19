@@ -15,7 +15,7 @@ import SearchAppBar from '../components/Searchbar.js';
 import ProjectCard from '../components/ProjectCard.js'
 import { useHistory } from 'react-router-dom';
 import { ColorButton } from '../components/Button.js';
-
+import Env from '../components/Env'
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -130,7 +130,7 @@ export default function Dashboard() {
         </div>
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          Blah2
+          <Env />
         </TabPanel>
       </SwipeableViews>
     </div>
