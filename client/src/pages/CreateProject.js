@@ -18,7 +18,9 @@ const useCreateProjectStyles = makeStyles(()=>({
     },
     content:{
         display:"flex",
-        flexDirection:"row"
+        flexDirection:"row",
+        alignItems:"center",
+        justifyContent:"center"
     },
     text:{
         fontFamily:"Poppins",
@@ -44,6 +46,9 @@ const CreateProject = () => {
                             Import from Github
                         </Typography>
                     </ActionButton>
+                    <Typography className={classes.text}>
+                        or
+                    </Typography>
                     <ActionButton>
                         <Typography className={classes.text}>
                             Start from scratch

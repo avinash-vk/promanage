@@ -11,6 +11,7 @@ const useStyles = makeStyles(()=>({
         justifyContent:'center',
         borderRadius:10,
         border:"1px solid transparent",
+        margin:8,
         '&:hover':{
             cursor:'pointer',
             border:"1px solid #FF8400"
