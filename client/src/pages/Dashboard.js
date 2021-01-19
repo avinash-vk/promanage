@@ -2,30 +2,20 @@ import React from 'react';
 import ROUTES from '../routes';
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
-import { makeStyles, useTheme,withStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import {
   Tabs,
   Tab,
   Box,
   Typography,
-  Button,
   Toolbar,
   Grid
 } from '@material-ui/core';
 import SearchAppBar from '../components/Searchbar.js';
 import ProjectCard from '../components/ProjectCard.js'
 import { useHistory } from 'react-router-dom';
+import { ColorButton } from '../components/Button.js';
 
-const ColorButton = withStyles(() => ({
-  root: {
-    color: 'white',
-    backgroundColor: '#FF8400',
-    '&:hover': {
-      backgroundColor: '#FF8400',
-      opacity:"0.8"
-    },
-  },
-}))(Button);
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 

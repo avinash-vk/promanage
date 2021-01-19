@@ -1,9 +1,9 @@
 import React from 'react'
 import { Modal, Avatar, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { ColorButton } from './Button';
 
-
-const modalStyles = makeStyles(()=>({
+const modalStyles = makeStyles((theme)=>({
     root:{
         height: 620,
         width: 600,
@@ -13,11 +13,12 @@ const modalStyles = makeStyles(()=>({
         alignItems: "center",
         flexDirection:"column",
         outline:'none',
+        padding:20
     },
     modal:{
         display:'flex',
         alignItems:'center',
-        justifyContent:'center'
+        justifyContent:'center',
     },
     text:{
         fontFamily:"Poppins",
@@ -29,14 +30,32 @@ const modalStyles = makeStyles(()=>({
         flexDirection:'row',
         alignItems:'center',
         justifyContent:'center',
-        padding:20
     },
     logo:{
         marginRight:12,
         height:60,
         width:60
+    },
+    content:{
+        height:520,
+        width:"100%",
+        backgroundColor:"#F4F4F4",
+        borderRadius:10,
+        overflowY:"auto",
+        display:'flex',
+        alignItems:'center',
+        justifyContent:'center',
+    },
+    button:{
+        margin: theme.spacing(1),
+        textTransform:"capitalize",
+        borderRadius:100,
+        paddingLeft:30,
+        paddingRight:30
     }
 }))
+
+
 export const GithubModal = ({open, handleClose}) => {
     const classes = modalStyles();
     return (
@@ -52,7 +71,14 @@ export const GithubModal = ({open, handleClose}) => {
                         Import from Github
                     </Typography>
                 </div>
-                
+                <div className={classes.content}>
+                    This is not integrated yet.
+                </div>
+                <div className={classes.footer}>
+                    <ColorButton variant="contained" color="primary" onClick={()=>{}} className={classes.button}>
+                        Create
+                    </ColorButton>
+                </div>
             </div>
         </Modal>
     )
