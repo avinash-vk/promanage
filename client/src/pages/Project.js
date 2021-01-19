@@ -3,6 +3,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Header } from '../components/Header';
 import { Tabs, Tab, Typography } from '@material-ui/core';
 
+// Tabs
+import ProjectTab from './ProjectTabs/ProjectTab'; 
+import Codebase from './ProjectTabs/Codebase';
+import Env from './ProjectTabs/Env';
+import Board from './ProjectTabs/Board';
+
 const useProjectStyles = makeStyles(()=>({
     root:{
         display:"flex",
@@ -53,6 +59,18 @@ const useTabItemStyles = makeStyles(() => ({
     wrapper:{}
   }));
 
+const RenderComponent = ({index}) => {
+    let component;
+    if(index === 0) component = <ProjectTab />;
+    else if(index === 1) component = <Codebase />;
+    else if(index === 2) component = <Board />;
+    else component = <Env />;
+
+    return (
+        <>{component}</>
+    )
+}
+
 const Project = () => {
     const classes = useProjectStyles();
     const [index, setIndex] = React.useState(0);
@@ -74,6 +92,7 @@ const Project = () => {
                 <Tab label="Board" classes={tabItemStyles} disableRipple={true} />
                 <Tab label="Environment" classes={tabItemStyles} disableRipple={true} />
             </Tabs>
+            <RenderComponent index= {index} />
         </div>
     )
 }
