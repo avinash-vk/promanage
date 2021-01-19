@@ -9,6 +9,8 @@ import Typography from "@material-ui/core/Typography";
 import Avatar from '@material-ui/core/Avatar';
 import AvatarGroup from '@material-ui/lab/AvatarGroup';
 import {Share2} from 'react-feather';
+import { useHistory } from 'react-router-dom';
+import ROUTES from '../routes';
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 350,
@@ -18,6 +20,10 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 2,
     boxShadow: "1px 2px 10px rgba(0,0,0,0.25)",
     flex:1,
+    "&:hover":{
+      cursor:"pointer",
+      boxShadow: "1px 2px 10px #FF8400",
+    }
   },
   small: {
     width: theme.spacing(3),
@@ -41,8 +47,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ProjectCard() {
   const classes = useStyles();
+  const history = useHistory();
+  const handleClick = () => {
+    history.push(ROUTES.project);
+  }
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} onClick={handleClick}>
       <CardHeader
         action={<div style={{ borderRadius: 100, backgroundColor: "#FF9696",padding:5,fontSize:10,color:"white"}}>
         IN PROGRESS{" "}
