@@ -14,36 +14,14 @@ const useProjectStyles = makeStyles(()=>({
         display:"flex",
         flexGrow:1,
         flexDirection:"column"
-    },
-    contentContainer:{
-        display:"flex",
-        flex:1,
-        alignItems:"center",
-        justifyContent:"center"
-    },
-    content:{
-        display:"flex",
-        flexDirection:"row",
-        alignItems:"center",
-        justifyContent:"center"
-    },
-    text:{
-        fontFamily:"Poppins",
-        fontWeight:500,
-        fontSize:20
-    },
-    logo: {
-        height:67,
-        width:67,
-        marginRight:8
-    },
+    },    
     tabs:{
         backgroundColor:"#FFF",
         paddingLeft:36
     }
 }))
 
-const useTabItemStyles = makeStyles(() => ({
+const useTabStyles = makeStyles(() => ({
     root: {
         textTransform:"capitalize", 
         fontFamily:"Poppins",
@@ -57,7 +35,7 @@ const useTabItemStyles = makeStyles(() => ({
     },
     selected:{},
     wrapper:{}
-  }));
+}));
 
 const RenderComponent = ({index}) => {
     let component;
@@ -74,7 +52,7 @@ const RenderComponent = ({index}) => {
 const Project = () => {
     const classes = useProjectStyles();
     const [index, setIndex] = React.useState(0);
-    const tabItemStyles = useTabItemStyles();
+    const tabStyles = useTabStyles();
     const handleTabChange = (e,newIndex) => setIndex(newIndex);
 
     return (
@@ -87,10 +65,10 @@ const Project = () => {
                 className={classes.tabs}
                 indicatorColor="transparent"
             >
-                <Tab label="Project" classes={tabItemStyles} disableRipple={true}/>
-                <Tab label="Codebase" classes={tabItemStyles} disableRipple={true} />
-                <Tab label="Board" classes={tabItemStyles} disableRipple={true} />
-                <Tab label="Environment" classes={tabItemStyles} disableRipple={true} />
+                <Tab label="Project" classes={tabStyles} disableRipple={true}/>
+                <Tab label="Codebase" classes={tabStyles} disableRipple={true} />
+                <Tab label="Board" classes={tabStyles} disableRipple={true} />
+                <Tab label="Environment" classes={tabStyles} disableRipple={true} />
             </Tabs>
             <RenderComponent index= {index} />
         </div>
