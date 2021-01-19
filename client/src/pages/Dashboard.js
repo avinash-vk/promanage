@@ -11,7 +11,8 @@ import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar';
 import SearchAppBar from '../components/Searchbar.js';
 import Grid from '@material-ui/core/Grid';
-import ProjectCard from '..//components/ProjectCard.js'
+import ProjectCard from '../components/ProjectCard.js'
+import Env from '../components/Env.js'
 const ColorButton = withStyles(() => ({
   root: {
     color: 'white',
@@ -135,7 +136,7 @@ export default function Dashboard() {
         </div>
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          Blah2
+          <Env/>
         </TabPanel>
       </SwipeableViews>
     </div>
