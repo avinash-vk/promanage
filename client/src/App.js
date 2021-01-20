@@ -13,8 +13,23 @@ import Info from "./pages/Info";
 import Profile from "./pages/Profile";
 import SignIn from "./pages/Auth/SignIn";
 
+import { auth } from "./firebase";
+
 function App() {
-  let [isAuth,setAuth] = React.useState(false);
+  let [user,setUser] = React.useState(false);
+
+  React.useEffect(() => {
+    auth.onAuthStateChanged(async (user) => {
+      if(user){
+        const { displayName, email }  = user;
+        setUser({
+          displayName,
+          email
+        })
+      }
+    })
+  },[])
+
   let signedInRoutes = (
     <Switch>
       <Route exact path={ROUTES.dashboard} component={Dashboard} />
@@ -28,14 +43,14 @@ function App() {
   );
   let signedOutRoutes = (
     <Switch>
-      <Route exact path={ROUTES.signin} component={()=><SignIn setAuth = {setAuth} />} />
+      <Route exact path={ROUTES.signin} component={()=><SignIn setUser = {setUser} />} />
       <Redirect to={ROUTES.signin} />
     </Switch>
   );
   return (
     <BrowserRouter>
       {
-        isAuth 
+        user 
         ? <SignedInLayout >
             {signedInRoutes}
           </SignedInLayout>
