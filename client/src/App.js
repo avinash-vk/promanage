@@ -11,6 +11,7 @@ import Project from "./pages/Project";
 import Settings from "./pages/Settings";
 import Info from "./pages/Info";
 import Profile from "./pages/Profile";
+import SignIn from "./pages/Auth/SignIn";
 
 function App() {
   let routes = (
@@ -21,7 +22,8 @@ function App() {
       <Route exact path={ROUTES.profile} component={Profile} />
       <Route exact path={ROUTES.settings} component={Settings} />
       <Route exact path={ROUTES.info} component={Info} />
-      <Redirect to="/" />
+      <Route exact path={ROUTES.signin} component={SignIn} />
+      <Redirect to="/signin" />
     </Switch>
   );
 

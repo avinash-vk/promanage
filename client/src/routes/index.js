@@ -4,5 +4,6 @@ export default {
     project:"/project/id", //:id
     settings:"/settings",
     info:"/info",
-    profile:"/profile"
+    profile:"/profile",
+    signin:"/signin"
 }
