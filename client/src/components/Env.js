@@ -1,10 +1,8 @@
 import React from "react";
-import { makeStyles, useTheme,withStyles } from '@material-ui/core/styles';
-import { DataGrid } from '@material-ui/data-grid';
+import { makeStyles} from '@material-ui/core/styles';
 import { Typography } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import {Copy} from "react-feather";
-import Box from '@material-ui/core/Box';
 import {PlusCircle,MinusCircle} from "react-feather";
 const useStyles = makeStyles(() => ({
     root:{
@@ -44,27 +42,6 @@ export default function Env(){
             </div>
         </div>
     )
-}
-
-const columns = [
-  { field: 'key', headerName: 'Key', width: 200 },
-  { field: 'value', headerName: 'Value', width: 400 },
-];
-
-const rows = [
-  { id: 1 },
-  { id: 2},
-  { id: 3 },
-  { id: 4},
-  { id: 5 },
-];
-
-function DataTable() {
-  return (
-    <div style={{ height: 400}}>
-      <DataGrid rows={rows} columns={columns} pageSize={5}/>
-    </div>
-  );
 }
 class DynamicTable extends React.Component {
   constructor(props) {
