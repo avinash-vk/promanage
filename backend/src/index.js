@@ -1,7 +1,7 @@
 //imports
 const express = require('express');
 const bodyParser = require('body-parser');
-
+const api = require('./api');
 //env config
 require('dotenv').config();
 
@@ -21,6 +21,9 @@ app.get('/', (req, res) => {
 app.get('/ping', (req, res) => {
     res.json({"data": "pong"});
 });
+
+// Routers
+app.use('/api/v1', api);
 
 app.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);
