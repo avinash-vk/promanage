@@ -1,111 +1,105 @@
 import React from 'react';
 import ROUTES from '../routes';
 import PropTypes from 'prop-types';
-import SwipeableViews from 'react-swipeable-views';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import {
-  Tabs,
-  Tab,
-  Box,
-  Typography,
-  Toolbar,
-  Grid
-} from '@material-ui/core';
+import {Tabs,Tab,Box,Typography,Toolbar,Grid} from '@material-ui/core';
 import SearchAppBar from '../components/Searchbar.js';
 import ProjectCard from '../components/ProjectCard.js'
 import { useHistory } from 'react-router-dom';
 import { ColorButton } from '../components/Button.js';
 import Env from '../components/Env'
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`full-width-tabpanel-${index}`}
-      aria-labelledby={`full-width-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
-};
-
-function a11yProps(index) {
-  return {
-    id: `full-width-tab-${index}`,
-    'aria-controls': `full-width-tabpanel-${index}`,
-  };
-}
-
 const useStyles = makeStyles((theme) => ({
   root: {
     flexDirection:"row"
   },
+  toolbar:{
+    backgroundColor:"white",
+  },
   rootgrid: {
       flexGrow:1,
       justifyContent:'center',
-      alignContent:'center'
+      alignContent:'center',
+      padding:20
   },
   button: {
     margin: theme.spacing(1),
     textTransform:"capitalize",
     borderRadius:100,
   },
+  tabs:{
+    backgroundColor:"#FFF",
+}
 }));
-
+const useTabStyles = makeStyles(() => ({
+  root: {
+      textTransform:"capitalize", 
+      fontFamily:"Poppins",
+      fontWeight:600,
+      width:150,
+      fontSize:24,
+      color: '#C4C4C4',
+      '&$selected': {
+          color: 'black',
+      },
+  },
+  selected:{},
+  wrapper:{}
+}));
+const data =[
+  {
+  },
+  {
+  },
+  {
+  },
+  {}
+]
+const ProjectDisplay = () => {
+  const classes = useStyles();
+  return(
+    <div className={classes.rootgrid}>
+        <Grid container spacing={3}>
+          {data.map((value) => ( 
+            <Grid item xs><ProjectCard/></Grid>
+          ))}
+        </Grid>
+        </div>
+  )
+}
+const RenderComponent = ({value}) => {
+  let component;
+  if(value === 0) component = <ProjectDisplay />;
+  else component = <Env />;
+  return (
+      <>{component}</>
+  )
+}
 export default function Dashboard() {
   const classes = useStyles();
-  const theme = useTheme();
   const history = useHistory();
   const [value, setValue] = React.useState(0);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
-  const handleChangeIndex = (index) => {
-    setValue(index);
-  };
+  const tabStyles = useTabStyles();
+  const handleTabChange = (e,newValue) =>setValue(newValue);
   const handleStartProject = () => {
       history.push(ROUTES.createProject);
   }
-  const data =[
-    {
-    },
-    {
-    },
-    {
-    },
-    {}
-  ]
   return (
     <div className={classes.root}>
-          <Toolbar>
-              <div style={{width:'50%'}}>
+        <Toolbar className={classes.toolbar}>
+              <div>
         <Tabs
           value={value}
-          onChange={handleChange}
-          textColor="primary"
+          onChange={handleTabChange}
+          aria-label="Dashboard-tabs"
+          className={classes.tabs}
           TabIndicatorProps={{
             style: {
-              background:'#FF8400',
+              background:'transparent',
             }
           }}
         >
-          <Tab label={<span style={{ color: (value==0)?'black':'grey',textTransform:"capitalize",fontWeight:"bold",fontSize:20 }}>Projects</span>} {...a11yProps(0)} />
-          <Tab label={<span style={{ color: (value==1)?'black':'grey',textTransform:"capitalize",fontWeight:"bold",fontSize:20  }}>Boards</span>} {...a11yProps(1)} />
+          <Tab label="Projects" classes={tabStyles} />
+          <Tab label="Boards" classes={tabStyles} />
         </Tabs>
         </div>
         <div style = {{display:"flex",flexDirection:"row",marginLeft:"auto"}}>
@@ -115,24 +109,7 @@ export default function Dashboard() {
             </ColorButton>
         </div>
       </Toolbar>
-      <SwipeableViews
-        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-        index={value}
-        onChangeIndex={handleChangeIndex}
-      >
-        <TabPanel value={value} index={0} dir={theme.direction}>
-        <div className={classes.rootgrid}>
-        <Grid container spacing={3}>
-          {data.map((value) => ( 
-            <Grid item xs><ProjectCard/></Grid>
-          ))}
-        </Grid>
-        </div>
-        </TabPanel>
-        <TabPanel value={value} index={1} dir={theme.direction}>
-          <Env />
-        </TabPanel>
-      </SwipeableViews>
+      <RenderComponent value={value} />
     </div>
   );
 }
