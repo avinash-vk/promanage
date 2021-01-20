@@ -1,6 +1,6 @@
 import { Route, Switch, BrowserRouter, Redirect } from "react-router-dom";
 import ROUTES from "./routes";
-
+import React from 'react';
 //components
 import SignedInLayout from "./layout/SignedInLayout";
 
@@ -11,9 +11,11 @@ import Project from "./pages/Project";
 import Settings from "./pages/Settings";
 import Info from "./pages/Info";
 import Profile from "./pages/Profile";
+import SignIn from "./pages/Auth/SignIn";
 
 function App() {
-  let routes = (
+  let [isAuth,setAuth] = React.useState(false);
+  let signedInRoutes = (
     <Switch>
       <Route exact path={ROUTES.dashboard} component={Dashboard} />
       <Route exact path={ROUTES.createProject} component={CreateProject} />
@@ -21,15 +23,24 @@ function App() {
       <Route exact path={ROUTES.profile} component={Profile} />
       <Route exact path={ROUTES.settings} component={Settings} />
       <Route exact path={ROUTES.info} component={Info} />
-      <Redirect to="/" />
+      <Redirect to={ROUTES.dashboard} />
     </Switch>
   );
-
+  let signedOutRoutes = (
+    <Switch>
+      <Route exact path={ROUTES.signin} component={()=><SignIn setAuth = {setAuth} />} />
+      <Redirect to={ROUTES.signin} />
+    </Switch>
+  );
   return (
     <BrowserRouter>
-      <SignedInLayout >
-        {routes}
-      </SignedInLayout>
+      {
+        isAuth 
+        ? <SignedInLayout >
+            {signedInRoutes}
+          </SignedInLayout>
+        : <> {signedOutRoutes} </>
+      }
     </BrowserRouter>
   );
 }
