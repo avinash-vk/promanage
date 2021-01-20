@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography, Avatar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { ReactComponent as Logo } from '../../assets/logo.svg';
 
@@ -41,8 +41,44 @@ const useStyles = makeStyles(()=>({
         fontWeight:200,
         fontSize:18,
         color:"rgba(0,0,0,0.5)"
+    },
+    buttonContainer:{
+        width:400,
+        margin:8,
+        display:"flex",
+        justifyContent:"center",
+        alignItems:"center",
+        boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.25)",
+        borderRadius:10,
+        border:"2px solid black",
+        "&:hover":{
+            boxShadow: "0px 2px 2px #FF8400",
+            cursor:"pointer"
+        }
+    },
+    authLogo:{
+        height:67,
+        width:67,
+        marginRight:8
+    },
+    buttonText:{
+        fontFamily:"Poppins",
+        fontWeight:100,
+        fontSize:24
     }
 }))
+
+const AuthButton = ({logo,content}) => {
+    const classes = useStyles();
+    return (
+        <div className={classes.buttonContainer}>
+            <Avatar src={logo} className={classes.authLogo} />
+            <Typography className={classes.buttonText}>
+                {content}
+            </Typography>
+        </div>
+    );
+}
 
 const SignIn = () => {
     const classes = useStyles();
@@ -60,6 +96,19 @@ const SignIn = () => {
                     <Typography className={classes.text}>
                         A single workspace to manage all your projects
                     </Typography>
+                    <br />
+                    <br />
+                    <AuthButton 
+                        logo="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" 
+                        content="Continue with Github"
+                    />
+                    <Typography className={classes.text}>
+                        or
+                    </Typography>
+                    <AuthButton 
+                        logo="https://skipway.com/wp-content/uploads/2020/05/image-20150902-6700-t2axrz.jpg" 
+                        content="Continue with Google"
+                    />
                 </Grid>
             </Grid>
         </div>
