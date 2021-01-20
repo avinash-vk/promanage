@@ -19,6 +19,33 @@ const getUser = async (req,res) => {
     }
 }
 
+const createUser = async (req,res) => {
+    const { id, username, photoUrl } = req.body;
+    if(!id) {
+        res.status(400).json({
+            error: "ID cannot be found"
+        });
+    }
+    else {
+        try {
+            await users.doc(id).set({
+                id,
+                username,
+                photoUrl
+            });
+            res.status(200).json({
+                data:"Success"
+            });
+        }
+        catch(err) {
+            res.status(300).json({
+                error: "Could not update to the database" + err.message
+            });
+        }
+    }
+}
+
 module.exports = {
-    getUser
+    getUser,
+    createUser
 }

@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { getUser } = require('../controllers/users');
+const { getUser, createUser } = require('../controllers/users');
 
 const userRouter = Router();
 
@@ -9,5 +9,5 @@ userRouter.get('/ping', (req,res) => {
 
 // Config
 userRouter.get('/:id', getUser);
-
+userRouter.post('/create', createUser);
 module.exports = userRouter;
