@@ -1,6 +1,6 @@
 import { Route, Switch, BrowserRouter, Redirect } from "react-router-dom";
 import ROUTES from "./routes";
-
+import React from 'react';
 //components
 import SignedInLayout from "./layout/SignedInLayout";
 
@@ -14,7 +14,7 @@ import Profile from "./pages/Profile";
 import SignIn from "./pages/Auth/SignIn";
 
 function App() {
-  let isAuth = false;
+  let [isAuth,setAuth] = React.useState(false);
   let signedInRoutes = (
     <Switch>
       <Route exact path={ROUTES.dashboard} component={Dashboard} />
@@ -28,7 +28,7 @@ function App() {
   );
   let signedOutRoutes = (
     <Switch>
-      <Route exact path={ROUTES.signin} component={SignIn} />
+      <Route exact path={ROUTES.signin} component={()=><SignIn setAuth = {setAuth} />} />
       <Redirect to={ROUTES.signin} />
     </Switch>
   );

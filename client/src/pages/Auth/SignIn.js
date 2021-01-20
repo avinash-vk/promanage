@@ -68,10 +68,10 @@ const useStyles = makeStyles(()=>({
     }
 }))
 
-const AuthButton = ({logo,content}) => {
+const AuthButton = ({logo,content,handleClick}) => {
     const classes = useStyles();
     return (
-        <div className={classes.buttonContainer}>
+        <div className={classes.buttonContainer} onClick={handleClick}>
             <Avatar src={logo} className={classes.authLogo} />
             <Typography className={classes.buttonText}>
                 {content}
@@ -80,7 +80,7 @@ const AuthButton = ({logo,content}) => {
     );
 }
 
-const SignIn = () => {
+const SignIn = ({setAuth}) => {
     const classes = useStyles();
     return (
         <div className={classes.root}>
@@ -101,6 +101,7 @@ const SignIn = () => {
                     <AuthButton 
                         logo="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" 
                         content="Continue with Github"
+                        handleClick={()=>setAuth(true)}
                     />
                     <Typography className={classes.text}>
                         or
@@ -108,6 +109,7 @@ const SignIn = () => {
                     <AuthButton 
                         logo="https://skipway.com/wp-content/uploads/2020/05/image-20150902-6700-t2axrz.jpg" 
                         content="Continue with Google"
+                        handleClick={()=>setAuth(true)}
                     />
                 </Grid>
             </Grid>
