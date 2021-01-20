@@ -16,10 +16,10 @@ import SignIn from "./pages/Auth/SignIn";
 import { auth } from "./firebase";
 
 function App() {
-  let [user,setUser] = React.useState(false);
-
+  let [user,setUser] = React.useState(null);
+  const [loading, setLoading] = React.useState(true);
   React.useEffect(() => {
-    auth.onAuthStateChanged(async (user) => {
+    auth().onAuthStateChanged(async (user) => {
       if(user){
         const { displayName, email }  = user;
         setUser({
@@ -27,9 +27,13 @@ function App() {
           email
         })
       }
+      else {
+        setUser(null);
+      }
+      setLoading(false);
     })
   },[])
-
+  if(loading) return <p>Loading...</p>
   let signedInRoutes = (
     <Switch>
       <Route exact path={ROUTES.dashboard} component={Dashboard} />

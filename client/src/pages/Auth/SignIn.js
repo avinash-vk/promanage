@@ -2,6 +2,7 @@ import React from 'react'
 import { Grid, Typography, Avatar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { ReactComponent as Logo } from '../../assets/logo.svg';
+import { googleSignin, githubSignin } from './methods';
 
 const useStyles = makeStyles(()=>({
     container: {
@@ -101,7 +102,7 @@ const SignIn = ({setUser}) => {
                     <AuthButton 
                         logo="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" 
                         content="Continue with Github"
-                        handleClick={()=>setUser(true)}
+                        handleClick={githubSignin}
                     />
                     <Typography className={classes.text}>
                         or
@@ -109,7 +110,7 @@ const SignIn = ({setUser}) => {
                     <AuthButton 
                         logo="https://skipway.com/wp-content/uploads/2020/05/image-20150902-6700-t2axrz.jpg" 
                         content="Continue with Google"
-                        handleClick={()=>setUser(true)}
+                        handleClick={googleSignin}
                     />
                 </Grid>
             </Grid>

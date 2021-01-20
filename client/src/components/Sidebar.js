@@ -4,6 +4,7 @@ import logo from '../assets/logo.png';
 import { makeStyles } from "@material-ui/core/styles";
 import { Home, Info, Settings, LogOut } from 'react-feather';
 import { useHistory } from 'react-router-dom';
+import { signOut } from '../pages/Auth/methods';
 
 const Logo = () => {
     return (
@@ -109,7 +110,10 @@ const Sidebar = () => {
                     <Avatar src="https://images.unsplash.com/photo-1610767540785-96b4c65de306" alt="You" />
                     <Indicator active={index===3} />
                 </ListItem>
-                <ListItem className={classes.listItemBottom}>
+                <ListItem 
+                    className={classes.listItemBottom}
+                    onClick={signOut}
+                >
                     <LogOut color="#FF8400" size={36} />
                 </ListItem>
             </List>

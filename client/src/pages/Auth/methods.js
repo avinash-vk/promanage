@@ -1,10 +1,10 @@
-import { auth, firebase } from '../firebase';
+import { auth } from '../../firebase';
 
-const googleProvider = new firebase.auth.GoogleAuthProvider();
-const githubProvider = new firebase.auth.GithubAuthProvider();
+const googleProvider = new auth.GoogleAuthProvider();
+const githubProvider = new auth.GithubAuthProvider();
 
 export const googleSignin = () => {
-    auth.signInWithPopup(googleProvider).then((res) => {
+    auth().signInWithPopup(googleProvider).then((res) => {
         console.log("SIGNED IN",res.user)
     }).catch((error) => {
         console.log(error.message)
@@ -12,9 +12,13 @@ export const googleSignin = () => {
 }
 
 export const githubSignin = () => {
-    auth.signInWithPopup(githubProvider).then((res) => {
+    auth().signInWithPopup(githubProvider).then((res) => {
         console.log("SIGNED IN",res.user)
     }).catch((error) => {
         console.log(error.message)
     })
+}
+
+export const signOut = () => {
+    auth().signOut();
 }
