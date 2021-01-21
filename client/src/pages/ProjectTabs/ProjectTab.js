@@ -4,6 +4,7 @@ import { Typography, TextField, Select, MenuItem } from '@material-ui/core';
 import API from "../../api";
 import {useParams} from "react-router-dom";
 import { ColorButton } from '../../components/Button';
+import {ConfirmationModal} from '../../components/Modals';
 
 const projectTabStyles = makeStyles((theme)=>({
     contentContainer:{
@@ -66,6 +67,14 @@ const projectTabStyles = makeStyles((theme)=>({
         paddingLeft:30,
         paddingRight:30
     },
+    buttonDelete:{
+        margin: theme.spacing(1),
+        textTransform:"capitalize",
+        borderRadius:100,
+        paddingLeft:30,
+        paddingRight:30,
+        backgroundColor:"red"
+    },
 }));
 
 const ProjectTab = ({setLegacyTitle}) => {
@@ -75,6 +84,7 @@ const ProjectTab = ({setLegacyTitle}) => {
     const [description,setDescription] = React.useState("");
     const [status, setStatus] = React.useState(1);
     const [changed, setChanged] = React.useState(false);
+    const [open,setOpen] = React.useState(false);
 
     const handleUpdate = () => {
         API.updateProject(id,{ title, description, status}).then(res => setLegacyTitle(title));
@@ -90,6 +100,7 @@ const ProjectTab = ({setLegacyTitle}) => {
             setLegacyTitle(title);
           });
     },[])
+
     if (title===null) return <p>Loading...</p>
     return (
         <div className={classes.contentContainer}>
@@ -182,12 +193,18 @@ const ProjectTab = ({setLegacyTitle}) => {
                         </form>
                     </div>
             </div>
-            {
-                changed?
-                <ColorButton variant="contained" color="primary" onClick={handleUpdate} className={classes.button}>
-                    Update
-                </ColorButton>:null
-            }
+            <div style = {{display:"flex",flexDirection:"row",justifyContent:"center",alignItems:"center"}}>
+                {
+                    changed?
+                    <ColorButton variant="contained" color="primary" onClick={handleUpdate} className={classes.button}>
+                        Update
+                    </ColorButton>:null
+                }
+                <ColorButton variant="contained" color="primary" onClick={()=>setOpen(true)} className={classes.buttonDelete}>
+                    Delete
+                </ColorButton>
+                <ConfirmationModal open={open} handleClose={()=>setOpen(false)} id={id} />
+            </div>
             
         </div>
     )

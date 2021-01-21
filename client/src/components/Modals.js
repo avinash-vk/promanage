@@ -1,5 +1,5 @@
 import React from 'react'
-import { Modal, Avatar, Typography, TextField, Divider } from '@material-ui/core';
+import { Modal, Avatar, Typography, TextField, Dialog,DialogTitle, DialogActions, Button} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { ColorButton } from './Button';
 import API from "../api";
@@ -165,5 +165,31 @@ export const CreateProjectModal = ({open,handleClose}) => {
                 </div>
             </div>
         </Modal>
+    )
+}
+
+export const ConfirmationModal = ({open,handleClose,id}) => {
+    const history = useHistory();
+    const handleDelete = async () => {
+        API.deleteProject(id).then(res => {
+            history.push("/dashboard");
+        });
+    }
+    return (
+        <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+        >
+            <DialogTitle id="alert-dialog-title">{"Are you sure you wanna delete?"}</DialogTitle>
+            <DialogActions>
+                <Button onClick={handleClose} color="primary">
+                    Cancel
+                </Button>
+                <Button onClick={handleDelete} color="primary" autoFocus>
+                    Delete
+                </Button>
+            </DialogActions>
+        </Dialog>
     )
 }
