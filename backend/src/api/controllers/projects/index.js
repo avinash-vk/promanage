@@ -79,12 +79,52 @@ const getProjects = async (req, res) => {
     }
 }
 
-const updateProject = (req, res) => {
-    res.send("Underdev")
+const updateProject = async (req, res) => {
+    const { id } = req.params;
+    let project = await projects.doc(id).get();
+    if (!project.exists){
+        res.status(400);
+        res.json({
+            error: "No such user found"
+        });
+    }
+    try{
+        project = await projects.doc(id).set({
+            ...req.body
+        },{merge:true});
+        res.status(200);
+        res.json({
+            data: "Success"
+        })
+    }
+    catch(err){
+        res.status(300).json({
+            error: `Could not update to the database! - ${err}`
+        });
+    }
 }
 
-const deleteProject = (req, res) => {
-    res.send("Underdev")
+const deleteProject = async (req, res) => {
+    const { id } = req.params;
+    const project = await projects.doc(id).get();
+    if (!project.exists){
+        res.status(400);
+        res.json({
+            error: "No such project found"
+        });
+    }
+    try{
+        await projects.doc(id).delete();
+        res.status(200);
+        res.json({
+            data: "Success"
+        })
+    }
+    catch(err){
+        res.status(300).json({
+            error: "Could not update to the database! " + err.message
+        });
+    }
 }
 
 module.exports = {

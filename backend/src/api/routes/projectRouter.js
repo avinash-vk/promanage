@@ -9,7 +9,7 @@ projectRouter.get('/ping', (req,res) => {
 
 // Routes
 projectRouter.get('/project/:id', getProject);
-projectRouter.post('/project/:id', updateProject)
+projectRouter.put('/project/:id', updateProject)
 projectRouter.delete('/project/:id', deleteProject)
 projectRouter.get('/user/:id', getProjects);
 projectRouter.post('/new', createProject);
