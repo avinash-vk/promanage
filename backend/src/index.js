@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/ping', (req, res) => {
-    res.json({"data": "pong"});
+    res.json({"message": "pong"});
 });
 
 // Routers
