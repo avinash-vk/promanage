@@ -1,13 +1,18 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, TextField, Select, MenuItem } from '@material-ui/core';
+import API from "../../api";
+import {useParams} from "react-router-dom";
+import { ColorButton } from '../../components/Button';
+import {ConfirmationModal} from '../../components/Modals';
 
 const projectTabStyles = makeStyles((theme)=>({
     contentContainer:{
         display:"flex",
         flex:1,
         alignItems:"center",
-        justifyContent:"center"
+        justifyContent:"center",
+        flexDirection:"column",
     },
     text:{
         fontFamily:"Poppins",
@@ -54,13 +59,49 @@ const projectTabStyles = makeStyles((theme)=>({
         backgroundColor: "#F5F5F5",
         borderRadius: 8,
         padding: 10,
-    }
+    },
+    button:{
+        margin: theme.spacing(1),
+        textTransform:"capitalize",
+        borderRadius:100,
+        paddingLeft:30,
+        paddingRight:30
+    },
+    buttonDelete:{
+        margin: theme.spacing(1),
+        textTransform:"capitalize",
+        borderRadius:100,
+        paddingLeft:30,
+        paddingRight:30,
+        backgroundColor:"red"
+    },
 }));
 
-const ProjectTab = () => {
+const ProjectTab = ({setLegacyTitle}) => {
     const classes = projectTabStyles();
-    const [status, setStatus] = React.useState(0);
+    const { id } = useParams();
+    const [title,setTitle] = React.useState(null);
+    const [description,setDescription] = React.useState("");
+    const [status, setStatus] = React.useState(1);
+    const [changed, setChanged] = React.useState(false);
+    const [open,setOpen] = React.useState(false);
 
+    const handleUpdate = () => {
+        API.updateProject(id,{ title, description, status}).then(res => setLegacyTitle(title));
+        setChanged(false);
+    }
+
+    React.useEffect(()=>{
+        API.getProject(id).then(data => {
+            const {title, description, status} = data.data;
+            setTitle(title);
+            setDescription(description);
+            setStatus(status);
+            setLegacyTitle(title);
+          });
+    },[])
+
+    if (title===null) return <p>Loading...</p>
     return (
         <div className={classes.contentContainer}>
                 <div className={classes.root}>
@@ -74,6 +115,8 @@ const ProjectTab = () => {
                                     fullWidth
                                     InputProps={{disableUnderline: true}}
                                     className={classes.input} 
+                                    value={title}
+                                    onChange={(e)=>{setTitle(e.target.value);setChanged(true);}}
                                 />
                             </div>
                             <div className={classes.inputContainer}>
@@ -86,6 +129,8 @@ const ProjectTab = () => {
                                     rows={8} 
                                     InputProps={{disableUnderline: true}}
                                     className={classes.input} 
+                                    value={description}
+                                    onChange={(e)=>{setDescription(e.target.value);setChanged(true);}}
                                 />
                             </div>
                             <div style = {{ marginBottom:20}} >
@@ -97,13 +142,13 @@ const ProjectTab = () => {
                                     id="status-select"
                                     value={status}
                                     onChange={(e) => {
-                                        console.log(status)
-                                        setStatus(e.target.value)
+                                        setStatus(e.target.value);
+                                        setChanged(true);
                                     }}
                                     disableUnderline
                                     style={{marginLeft:16}}
                                 >
-                                    <MenuItem key = {"In Progress"} value={0}>
+                                    <MenuItem key = {"In Progress"} value={1}>
                                         <Typography style={{
                                             backgroundColor:"#FF9696",
                                             color:"#FFF",
@@ -115,7 +160,7 @@ const ProjectTab = () => {
                                             In Progress
                                         </Typography>
                                     </MenuItem>
-                                    <MenuItem key = {"Idea"} value={1}>
+                                    <MenuItem key = {"Idea"} value={2}>
                                         <Typography style={{
                                             backgroundColor:"#26C8FB",
                                             color:"#FFF",
@@ -126,7 +171,7 @@ const ProjectTab = () => {
                                         }}>
                                             Idea
                                         </Typography>
-                                    </MenuItem><MenuItem key = {"Done"} value={2}>
+                                    </MenuItem><MenuItem key = {"Done"} value={3}>
                                         <Typography style={{
                                             backgroundColor:"#0FF418",
                                             color:"#FFF",
@@ -148,6 +193,19 @@ const ProjectTab = () => {
                         </form>
                     </div>
             </div>
+            <div style = {{display:"flex",flexDirection:"row",justifyContent:"center",alignItems:"center"}}>
+                {
+                    changed?
+                    <ColorButton variant="contained" color="primary" onClick={handleUpdate} className={classes.button}>
+                        Update
+                    </ColorButton>:null
+                }
+                <ColorButton variant="contained" color="primary" onClick={()=>setOpen(true)} className={classes.buttonDelete}>
+                    Delete
+                </ColorButton>
+                <ConfirmationModal open={open} handleClose={()=>setOpen(false)} id={id} />
+            </div>
+            
         </div>
     )
 }

@@ -3,7 +3,7 @@ import ROUTES from "./routes";
 import React from 'react';
 //components
 import SignedInLayout from "./layout/SignedInLayout";
-
+import { AuthContext } from "./firebase/provider";
 // Pages
 import Dashboard from "./pages/Dashboard";
 import CreateProject from "./pages/CreateProject";
@@ -16,15 +16,16 @@ import SignIn from "./pages/Auth/SignIn";
 import { auth } from "./firebase";
 
 function App() {
-  let [user,setUser] = React.useState(null);
+  let { user, setUser } = React.useContext(AuthContext);
   const [loading, setLoading] = React.useState(true);
   React.useEffect(() => {
     auth().onAuthStateChanged(async (user) => {
       if(user){
-        const { displayName, email }  = user;
+        const { displayName, email, uid }  = user;
         setUser({
           displayName,
-          email
+          email,
+          uid
         })
       }
       else {
