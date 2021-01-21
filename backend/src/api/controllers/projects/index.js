@@ -127,10 +127,55 @@ const deleteProject = async (req, res) => {
     }
 }
 
+const addEnv = async (req,res) => {
+    const { id } = req.params;
+    let project = await projects.doc(id).get();
+    if (!project.exists){
+        res.status(400);
+        res.json({
+            error: "No such project found"
+        });
+    }
+    try{
+        project = await projects.doc(id).set({
+            ...req.body
+        },{merge:true});
+        res.status(200);
+        res.json({
+            data: "Successfully added Environment"
+        })
+    }
+    catch(err){
+        res.status(300).json({
+            error: `Could not update to the database! - ${err}`
+        });
+    }
+}
+
+const getProjectEnv = async (req, res) => {
+    const { id } = req.params;
+    const project = await projects.doc(id).get();
+    if (!project.exists){
+        res.status(400);
+        res.json({
+            error: "No such project found"
+        });
+    }
+    else {
+        let data = project.data();
+        res.status(200);
+        res.json({
+            env: data.env
+        })
+    }
+}
+
 module.exports = {
     getProject, 
     getProjects, 
     createProject, 
     updateProject, 
-    deleteProject
+    deleteProject,
+    addEnv,
+    getProjectEnv
 }
