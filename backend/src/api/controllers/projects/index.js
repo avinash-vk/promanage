@@ -1,6 +1,7 @@
 const db = require("../../../db/config");
 
 const projects = db.collection("projects");
+const users = db.collection("users");
 
 const getProject = async (req,res) => {
     const { id } = req.params;
@@ -47,8 +48,35 @@ const createProject = async (req,res) => {
     }
 }
 
-const getProjects = (req, res) => {
-    res.send("Underdev")
+const getProjects = async (req, res) => {
+    const { id } = req.params;
+    const user = await users.doc(id).get();
+    if (!user.exists){
+        res.status(400);
+        res.json({
+            error: "No such user found"
+        });
+    }
+    try {
+        let docs = await projects.get();
+        let output = [];
+        docs.forEach( doc => {
+            let data = doc.data();
+            if (data.collaborators && data.collaborators[id]){
+                output.push(data);
+            }
+        })
+        res.json({
+            data:{
+                projects: output
+            }
+        })
+    }
+    catch(err) {
+        res.status(300).json({
+            error: "Could not update to the database! " + err.message
+        });
+    }
 }
 
 const updateProject = (req, res) => {
