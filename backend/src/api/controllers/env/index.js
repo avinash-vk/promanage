@@ -12,20 +12,47 @@ const addEnv = async (req,res) => {
             error: "No such project found"
         });
     }
-    try{
-        await env.doc(id).set({
-            id:id,
-            ...req.body
-        })
-        res.status(200);
-        res.json({
-            data: "Successfully added Environment"
-        })
-    }
-    catch(err){
-        res.status(300).json({
-            error: `Could not update to the database! - ${err}`
-        });
+    else{
+        //Checking if project doesn't have already stored variables
+        let variable = await env.doc(id).get();
+        if (!variable.exists){
+            try{
+                await env.doc(id).set({
+                    id:id,
+                    ...req.body
+                })
+                res.status(200);
+                res.json({
+                    data: "Successfully added Environment"
+                })
+            }
+            catch(err){
+                res.status(300).json({
+                    error: `Could not update to the database! - ${err}`
+                });
+            }
+        }
+        else{
+            //Need to append to existing list of variables for project
+            const old = variable.data().variables;
+            //console.log(old)
+            //console.log(...req.body.variables)
+            old.push(...req.body.variables);
+            try{
+                variable = await env.doc(id).set({
+                    variables:old,
+                },{merge:true});
+                res.status(200);
+                res.json({
+                    data: "Successfully appended to Environment Variables"
+                })
+            }
+            catch(err){
+                res.status(300).json({
+                    error: `Could not update to the database! - ${err}`
+                });
+            }
+        }
     }
 }
 
@@ -48,16 +75,16 @@ const getProjectEnv = async (req, res) => {
     }
     else {
         let data = variable.data();
+        //console.log(data.variables)
         res.status(200);
         res.json({
-            env: data.variables
+            variables: data.variables
         })
     }
     }
 }
-
 const deleteEnv = async (req,res) => {
-    const { id } = req.params;
+    const { id} = req.params;
     const variable = await env.doc(id).get();
     if (!variable.exists){
         res.status(400);
@@ -69,7 +96,7 @@ const deleteEnv = async (req,res) => {
         await env.doc(id).delete();
         res.status(200);
         res.json({
-            data: "Success"
+            data: "Successfully Deleted Environment Variables"
         })
     }
     catch(err){

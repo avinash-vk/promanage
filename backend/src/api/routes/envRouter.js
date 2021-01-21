@@ -10,6 +10,6 @@ envRouter.get('/ping', (req,res) => {
 // Routes
 envRouter.get('/env/:id',getProjectEnv);
 envRouter.put('/env/:id',addEnv);
-envRouter.put('/env/remove/:id',deleteEnv)
+envRouter.delete('/env/remove/:id',deleteEnv)
 
 module.exports = envRouter;
