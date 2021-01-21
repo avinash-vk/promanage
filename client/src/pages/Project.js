@@ -9,6 +9,7 @@ import Codebase from './ProjectTabs/Codebase';
 import Env from './ProjectTabs/Env';
 import Board from './ProjectTabs/Board';
 
+
 const useProjectStyles = makeStyles(()=>({
     root:{
         display:"flex",
@@ -37,9 +38,9 @@ const useTabStyles = makeStyles(() => ({
     wrapper:{}
 }));
 
-const RenderComponent = ({index}) => {
+const RenderComponent = ({index,setLegacyTitle}) => {
     let component;
-    if(index === 0) component = <ProjectTab />;
+    if(index === 0) component = <ProjectTab setLegacyTitle={setLegacyTitle}/>;
     else if(index === 1) component = <Codebase />;
     else if(index === 2) component = <Board />;
     else component = <Env />;
@@ -49,15 +50,15 @@ const RenderComponent = ({index}) => {
     )
 }
 
-const Project = () => {
+const Project = (props) => {
     const classes = useProjectStyles();
     const [index, setIndex] = React.useState(0);
     const tabStyles = useTabStyles();
     const handleTabChange = (e,newIndex) => setIndex(newIndex);
-
+    const [title,setTitle] = React.useState("");
     return (
         <div className={classes.root} >
-            <Header title="Project title" />
+            <Header title={title} />
             <Tabs
                 value={index}
                 onChange={handleTabChange}
@@ -70,7 +71,7 @@ const Project = () => {
                 <Tab label="Board" classes={tabStyles} disableRipple={true} />
                 <Tab label="Environment" classes={tabStyles} disableRipple={true} />
             </Tabs>
-            <RenderComponent index= {index} />
+            <RenderComponent index= {index} setLegacyTitle={setTitle} />
         </div>
     )
 }

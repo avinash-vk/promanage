@@ -1,7 +1,8 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, TextField, Select, MenuItem } from '@material-ui/core';
-
+import API from "../../api";
+import {useParams} from "react-router-dom"
 const projectTabStyles = makeStyles((theme)=>({
     contentContainer:{
         display:"flex",
@@ -57,10 +58,23 @@ const projectTabStyles = makeStyles((theme)=>({
     }
 }));
 
-const ProjectTab = () => {
+const ProjectTab = ({setLegacyTitle}) => {
     const classes = projectTabStyles();
-    const [status, setStatus] = React.useState(0);
-
+    const { id } = useParams();
+    const [title,setTitle] = React.useState(null);
+    const [description,setDescription] = React.useState("");
+    const [status, setStatus] = React.useState(1);
+    
+    React.useEffect(()=>{
+        API.getProject(id).then(data => {
+            const {title, description, status} = data.data;
+            setTitle(title);
+            setDescription(description);
+            setStatus(status);
+            setLegacyTitle(title);
+          });
+    },[])
+    if (title===null) return <p>Loading...</p>
     return (
         <div className={classes.contentContainer}>
                 <div className={classes.root}>
@@ -74,6 +88,8 @@ const ProjectTab = () => {
                                     fullWidth
                                     InputProps={{disableUnderline: true}}
                                     className={classes.input} 
+                                    value={title}
+                                    onChange={(e)=>setTitle(e.target.value)}
                                 />
                             </div>
                             <div className={classes.inputContainer}>
@@ -86,6 +102,8 @@ const ProjectTab = () => {
                                     rows={8} 
                                     InputProps={{disableUnderline: true}}
                                     className={classes.input} 
+                                    value={description}
+                                    onChange={(e)=>setDescription(e.target.value)}
                                 />
                             </div>
                             <div style = {{ marginBottom:20}} >
@@ -103,7 +121,7 @@ const ProjectTab = () => {
                                     disableUnderline
                                     style={{marginLeft:16}}
                                 >
-                                    <MenuItem key = {"In Progress"} value={0}>
+                                    <MenuItem key = {"In Progress"} value={1}>
                                         <Typography style={{
                                             backgroundColor:"#FF9696",
                                             color:"#FFF",
@@ -115,7 +133,7 @@ const ProjectTab = () => {
                                             In Progress
                                         </Typography>
                                     </MenuItem>
-                                    <MenuItem key = {"Idea"} value={1}>
+                                    <MenuItem key = {"Idea"} value={2}>
                                         <Typography style={{
                                             backgroundColor:"#26C8FB",
                                             color:"#FFF",
@@ -126,7 +144,7 @@ const ProjectTab = () => {
                                         }}>
                                             Idea
                                         </Typography>
-                                    </MenuItem><MenuItem key = {"Done"} value={2}>
+                                    </MenuItem><MenuItem key = {"Done"} value={3}>
                                         <Typography style={{
                                             backgroundColor:"#0FF418",
                                             color:"#FFF",

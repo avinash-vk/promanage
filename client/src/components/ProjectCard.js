@@ -70,7 +70,7 @@ export default function ProjectCard({project}) {
   const classes = useStyles();
   const history = useHistory();
   const handleClick = () => {
-    history.push(ROUTES.project);
+    history.push(`/project/${project.id}`);
   }
   return (
     <Card className={classes.root} onClick={handleClick}>
