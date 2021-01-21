@@ -35,8 +35,21 @@ const addEnv = async (req,res) => {
         else{
             //Need to append to existing list of variables for project
             const old = variable.data().variables;
-            //console.log(old)
-            //console.log(...req.body.variables)
+            console.log(...req.body.variables)
+            /*
+            let newvar = []
+            //console.log(old);
+            old.forEach(myFunction);
+            function myFunction(value, index, array) {
+                console.log(value.key,...req.body.variables.key,value.key=={...req.body.variables.key});
+                if(value.key=={...req.body.variables.key})
+                    {;}
+                else{
+                    newvar.push(value);
+                }
+            }
+            newvar.push(...req.body.variables);
+            */
             old.push(...req.body.variables);
             try{
                 variable = await env.doc(id).set({
@@ -125,8 +138,48 @@ const deleteEnv = async (req,res) => {
     */
 }
 
+const deleteEnvPair = async (req,res) => {
+    const {id,key} = req.params
+    let variable = await env.doc(id).get();
+    if (!variable.exists){
+        res.status(400);
+        res.json({
+            error: "No such project found"
+        });
+    }
+        let old = variable.data().variables;
+        let newvar = []
+        //console.log(old);
+        old.forEach(myFunction);
+        function myFunction(value, index, array) {
+            //console.log(value.key,key,value.key==key);
+            if(value.key==key)
+                {;}
+            else{
+                newvar.push(value);
+            }
+            console.log(newvar);
+        }
+        try{
+            variable = await env.doc(id).set({
+                variables:newvar,
+            },{merge:true});
+            res.status(200);
+            res.json({
+                data: "Successfully removed from to Environment Variables"
+            })
+        }
+        catch(err){
+            res.status(300).json({
+                error: `Could not update to the database! - ${err}`
+            });
+        }
+        
+}
+
 module.exports = {
     addEnv,
     getProjectEnv,
-    deleteEnv
+    deleteEnv,
+    deleteEnvPair
 }
