@@ -2,6 +2,7 @@ const db = require("../../../db/config");
 const admin = require("firebase-admin");
 const projects = db.collection("projects");
 const users = db.collection("users");
+const env = db.collection("env");
 
 const getProject = async (req,res) => {
     const { id } = req.params;
@@ -127,76 +128,6 @@ const deleteProject = async (req, res) => {
     }
 }
 
-const addEnv = async (req,res) => {
-    const { id } = req.params;
-    let project = await projects.doc(id).get();
-    if (!project.exists){
-        res.status(400);
-        res.json({
-            error: "No such project found"
-        });
-    }
-    try{
-        project = await projects.doc(id).set({
-            ...req.body
-        },{merge:true});
-        res.status(200);
-        res.json({
-            data: "Successfully added Environment"
-        })
-    }
-    catch(err){
-        res.status(300).json({
-            error: `Could not update to the database! - ${err}`
-        });
-    }
-}
-
-const getProjectEnv = async (req, res) => {
-    const { id } = req.params;
-    const project = await projects.doc(id).get();
-    if (!project.exists){
-        res.status(400);
-        res.json({
-            error: "No such project found"
-        });
-    }
-    else {
-        let data = project.data();
-        res.status(200);
-        res.json({
-            env: data.env
-        })
-    }
-}
-
-const deleteEnv = async (req,res) => {
-    const { id } = req.params;
-    const project = await projects.doc(id).get();
-    if (!project.exists){
-        res.status(400);
-        res.json({
-            error: "No such project found"
-        });
-    }
-    try{
-        var docRef = projects.doc(id);
-        var removeKey = docRef.update(
-            {
-               env: admin.firestore.FieldValue.delete()
-            }
-        );
-        res.status(200);
-        res.json({
-            data: "Successfully removed Enviroment"
-        })
-    }
-    catch(err){
-        res.status(300).json({
-            error: "Could not update to the database! " + err.message
-        });
-    }
-}
 
 module.exports = {
     getProject, 
@@ -204,7 +135,4 @@ module.exports = {
     createProject, 
     updateProject, 
     deleteProject,
-    addEnv,
-    getProjectEnv,
-    deleteEnv
 }
