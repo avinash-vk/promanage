@@ -9,5 +9,5 @@ userRouter.get('/ping', (req,res) => {
 
 // Config
 userRouter.get('/:id', getUser);
-userRouter.post('/create', createUser);
+userRouter.post('/new', createUser);
 module.exports = userRouter;
