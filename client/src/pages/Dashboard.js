@@ -8,9 +8,12 @@ import ProjectCard from '../components/ProjectCard.js'
 import { useHistory } from 'react-router-dom';
 import { ColorButton } from '../components/Button.js';
 import Env from '../components/Env'
+import { AuthContext } from '../firebase/provider';
+import API from "../api";
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexDirection:"row"
+    flexDirection:"row",
+    width:"100%"
   },
   toolbar:{
     backgroundColor:"white",
@@ -45,22 +48,22 @@ const useTabStyles = makeStyles(() => ({
   selected:{},
   wrapper:{}
 }));
-const data =[
-  {
-  },
-  {
-  },
-  {
-  },
-  {}
-]
+
 const ProjectDisplay = () => {
   const classes = useStyles();
+  const { user } = React.useContext(AuthContext);
+  const [ projects, setProjects ] = React.useState([])
+  React.useEffect(()=>{
+    API.getProjectForUser(user.uid).then(data => {
+      setProjects(data.data.projects || []);
+    });
+  },[]);
+
   return(
     <div className={classes.rootgrid}>
-        <Grid container spacing={3}>
-          {data.map((value) => ( 
-            <Grid item xs><ProjectCard/></Grid>
+        <Grid container spacing={4}>
+          {projects.map((project) => ( 
+            <Grid item xs={4}><ProjectCard project={project} /></Grid>
           ))}
         </Grid>
         </div>

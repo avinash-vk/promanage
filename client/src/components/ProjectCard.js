@@ -45,7 +45,28 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function ProjectCard() {
+const StatusLabel = ({status}) => {
+  const statusMap = [
+    {
+      color:"#FF9696",
+      title:"IN PROGRESS"
+    },
+    {
+      color:"#26C8FB",
+      title:"IDEA"
+    },
+    {
+      color:"#0FF418",
+      title:"DONE"
+    }
+  ]
+  const { color, title } = statusMap[status - 1]
+  return <div style={{ borderRadius: 100, backgroundColor: color,padding:5,paddingLeft:10,paddingRight:10,fontSize:10,color:"white"}}>
+            {title}
+         </div>
+}
+
+export default function ProjectCard({project}) {
   const classes = useStyles();
   const history = useHistory();
   const handleClick = () => {
@@ -54,17 +75,14 @@ export default function ProjectCard() {
   return (
     <Card className={classes.root} onClick={handleClick}>
       <CardHeader
-        action={<div style={{ borderRadius: 100, backgroundColor: "#FF9696",padding:5,fontSize:10,color:"white"}}>
-        IN PROGRESS{" "}
-      </div>}
-       title="Meraki"
+        action={<StatusLabel status = {project.status} />}
+       title={project.title || "Untitled"}
        titleTypographyProps={{fontFamily:"Poppins"}}
       > 
       </CardHeader>
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p" className={classes.font}>
-          An job finding application through stories for the less fortunate in
-          order to bridge gaps between jobs and the jobless.
+          {project.description || ""} 
         </Typography>
       </CardContent>
       <CardActions >
