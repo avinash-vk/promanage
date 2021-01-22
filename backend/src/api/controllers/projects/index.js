@@ -1,7 +1,8 @@
 const db = require("../../../db/config");
-
+const admin = require("firebase-admin");
 const projects = db.collection("projects");
 const users = db.collection("users");
+const env = db.collection("env");
 
 const getProject = async (req,res) => {
     const { id } = req.params;
@@ -127,10 +128,11 @@ const deleteProject = async (req, res) => {
     }
 }
 
+
 module.exports = {
     getProject, 
     getProjects, 
     createProject, 
     updateProject, 
-    deleteProject
+    deleteProject,
 }

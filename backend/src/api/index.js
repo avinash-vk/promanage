@@ -1,7 +1,7 @@
 const express = require("express");
 
 // Routers
-const { userRouter, projectRouter } = require('./routes');
+const { userRouter, projectRouter, envRouter } = require('./routes');
 
 //app
 const api = express();
@@ -9,5 +9,5 @@ const api = express();
 //router config
 api.use("/users",userRouter);
 api.use("/projects",projectRouter);
-
+api.use("/envs",envRouter)
 module.exports = api;
