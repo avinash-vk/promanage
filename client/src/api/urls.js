@@ -6,6 +6,7 @@ const projectURL = {
     project:(id) => `${ENDPOINT}/projects/project/${id}`,
     getProjects:(id) => `${ENDPOINT}/projects/user/${id}`,
     createProject:() => `${ENDPOINT}/projects/new`,
+    importProject :(username) => `https://api.github.com/users/${username}/repos`
 }
 
 export default URL = {

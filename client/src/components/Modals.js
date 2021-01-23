@@ -5,6 +5,22 @@ import { ColorButton } from './Button';
 import API from "../api";
 import { AuthContext } from "../firebase/provider";
 import { useHistory } from "react-router-dom";
+import Link from '@material-ui/core/Link';
+
+const useStyles = makeStyles({
+  root: {
+    padding:5,
+    borderBottomColor:'#FF8400',
+    borderBottomWidth:2,
+    textTransform:"capitalize",
+    textAlign:"center"
+  },
+  hr:{
+      borderColor:'#FF8400',
+      opacity:0.6,
+      width:"100%"
+  }
+});
 
 const modalStyles = makeStyles((theme)=>({
     root:{
@@ -73,9 +89,83 @@ const modalStyles = makeStyles((theme)=>({
     }
 }))
 
-
+function SimpleCard({repo}) {
+    const classes = useStyles();
+    return (
+    <div className={classes.root}>
+          <Typography variant="h6" component="h2">
+            {repo.name || ""}
+          </Typography>
+          <Typography color="textSecondary">
+            {repo.description || ""}
+          </Typography>
+          <Link color="inherit" href={repo.html_url} target="_blank">Visit Repo</Link>  
+          <hr className={classes.hr}></hr>
+    </div>
+    );
+  }
+  
 export const GithubModal = ({open, handleClose}) => {
+    const [logged,setLog] = React.useState(0);
     const classes = modalStyles();
+    const [username,setUsername] =React.useState("sanskritip");
+    const handleLogin = () =>{
+        setLog(!logged);
+    }
+    const [selectedRepo,setSelectedRepo] = React.useState({});
+    const { user } = React.useContext(AuthContext);
+    const  history  = useHistory();
+    const handleSubmit = async (e) => {
+        const {title,description} = {...selectedRepo.name,...selectedRepo.description}
+        e.preventDefault();
+        API.createProject(user.uid, { title, description, collaborators: {[user.uid] : true},status:1}).then(res => {
+            history.push(`/project/${res.data.id}`);
+        })
+    }
+    const [ repos, setRepos] = React.useState([])
+            React.useEffect(()=>{
+                API.importProject(username).then(data=>{
+                    setRepos(data || [{"name":"temp1"},{"name":"temp2"}]);
+                })
+            })
+    const RepoDisp = () =>{
+        if(!logged)
+        {
+            return(
+                <form>
+                     <div className={classes.inputContainer}>
+                            <Typography className={classes.text}>
+                                Github Username
+                            </Typography>
+                            <TextField 
+                                fullWidth
+                                InputProps={{disableUnderline: true}}
+                                className={classes.input} 
+                                onChange={e => setUsername(e.target.value)}
+                                value={username}
+                            />
+                        </div>
+                        <div className={classes.footer}>
+                        <ColorButton variant="contained" color="primary" onClick={handleLogin()} className={classes.button}>
+                        Login
+                        </ColorButton>
+                        </div>
+                </form>
+            )
+        }
+        else{
+            return(
+                <div>
+                    hiii
+                    {repos.map((repo)=>(
+                        <Button onClick={()=>{setSelectedRepo(repo)}}>
+                        <SimpleCard repo={repo}/>
+                        </Button>
+                    ))}
+                </div>
+            )     
+        }
+    }
     return (
         <Modal
             open={open}
@@ -89,11 +179,11 @@ export const GithubModal = ({open, handleClose}) => {
                         Import from Github
                     </Typography>
                 </div>
-                <div className={classes.content} style={{backgroundColor:"#F4F4F4"}}>
-                    This is not integrated yet.
+                <div className={classes.content} style={{backgroundColor:"#F4F4F4",paddingTop:350}}>
+                    <RepoDisp/>
                 </div>
                 <div className={classes.footer}>
-                    <ColorButton variant="contained" color="primary" onClick={()=>{}} className={classes.button}>
+                    <ColorButton variant="contained" color="primary" onClick={()=>{handleSubmit()}} className={classes.button} style={{visibility:(!logged)?"hidden":"visible"}}>
                         Create
                     </ColorButton>
                 </div>

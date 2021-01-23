@@ -7,6 +7,7 @@ const Projects = {
     deleteProject : async (id) => (await axios.delete(URL.project(id))).data,
     createProject : async (id,params) => (await axios.post(URL.createProject(),params)).data,
     getProjectForUser : async (id) => (await axios.get(URL.getProjects(id))).data,
+    importProject : async (username) => (await axios.get(URL.importProject(username))).data
 }
 
 let API;
