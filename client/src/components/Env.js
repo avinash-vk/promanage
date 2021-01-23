@@ -1,6 +1,5 @@
 import React from "react";
 import { makeStyles} from '@material-ui/core/styles';
-import { Typography } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import {Copy} from "react-feather";
 import {PlusCircle,MinusCircle} from "react-feather";
@@ -19,6 +18,8 @@ const useStyles = makeStyles(() => ({
         alignSelf:"center",
         marginTop:20,
         justifyContent:'center',
+        overflow:"auto",
+        height:"60%"
     },
     url:{
         marginTop:20,
@@ -32,7 +33,7 @@ export default function Env(){
     const classes = useStyles();
     return (
         <div className={classes.root}>
-            <span style={{ color: 'black',textTransform:"capitalize",fontWeight:"bold",fontSize:15}}>Your environemt for Meraki</span>
+            <span style={{ color: 'black',textTransform:"capitalize",fontWeight:600,fontSize:28}}>Your environemt for Meraki</span>
            <div className={classes.child}>
              <DynamicTable/>
           </div> 
@@ -68,6 +69,8 @@ class DynamicTable extends React.Component {
   }
   handleClick() {
     var items = this.state.items;
+    if (this.state.key == "" || this.state.key == "")
+      return;
     items.push({key:this.state.key,value:this.state.value});
     this.setState({
       items:items,
@@ -106,12 +109,14 @@ class DynamicTable extends React.Component {
                       value={o.key}
                       onChange={context.handleKeyChanged.bind(context, i)}
                       style={{width:"30%",padding:10}}
+                      disabled
                     />
                     <input
                       type="text"
                       value={o.value}
                       onChange={context.handleValueChanged.bind(context, i)}
                       style={{width:"50%",padding:10}}
+                      disabled
                     />
                     <IconButton aria-label="add"  onClick={context.handleItemDeleted.bind(context, i)}><MinusCircle/></IconButton>
                     </>
