@@ -4,6 +4,7 @@ import IconButton from "@material-ui/core/IconButton";
 import {Copy} from "react-feather";
 import {PlusCircle,MinusCircle} from "react-feather";
 import API from '../api';
+import { useParams } from 'react-router-dom';
 
 const useStyles = makeStyles(() => ({
     root:{
@@ -30,13 +31,21 @@ const useStyles = makeStyles(() => ({
         fontSize:15
     }
 }));
-export default function Env(){
+export default function Env({project}){
     const classes = useStyles();
+    const { id } = useParams();
+    const [ variables, setVariables ] = React.useState([]);
+    React.useEffect(()=>{
+        API.getEnv(id).then(data => {
+            setVariables(data.variables);
+          });
+    },[])
+
     return (
         <div className={classes.root}>
             <span style={{ color: 'black',textTransform:"capitalize",fontWeight:600,fontSize:28}}>Your environemt for Meraki</span>
            <div className={classes.child}>
-             <DynamicTable/>
+             <DynamicTable variables = {variables} setVariables = {setVariables} />
           </div> 
             <div className={classes.url}>
                 <span>
@@ -54,8 +63,7 @@ class DynamicTable extends React.Component {
     super(props);
     this.state = {
       key:"",
-      value:"",
-      items: []
+      value:""
     }
   }
   updateKey(event) {
@@ -69,40 +77,34 @@ class DynamicTable extends React.Component {
     })
   }
   handleClick() {
-    var items = this.state.items;
+    var items = this.props.variables;
     if (this.state.key == "" || this.state.key == "")
       return;
     items.push({key:this.state.key,value:this.state.value});
     this.setState({
-      items:items,
       key:"",
       value:""
     });
+    this.setVariables(items);
   }
   handleKeyChanged(i, event) {
-    var items = this.state.items;
+    var items = this.props.variables;
     items[i].key = event.target.value;
-    this.setState({
-      items: items
-    });
+    this.setVariables(items)
   }
   handleValueChanged(i, event) {
-    var items = this.state.items;
+    var items = this.props.variables;
     items[i].value = event.target.value;
-    this.setState({
-      items: items
-    });
+    this.setVariables(items)
   }
   handleItemDeleted(i) {
-    var items = this.state.items;
+    var items = this.props.variables;
     items.splice(i, 1);
-    this.setState({
-      items: items
-    });
+    this.setVariables(items)
   }
   renderRows() {
     var context = this;
-    return  this.state.items.map(function(o, i) {
+    return  this.props.variables.map(function(o, i) {
               return (
                 <>
                     <input
