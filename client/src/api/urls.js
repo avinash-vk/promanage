@@ -14,7 +14,8 @@ const envURL = {
     deleteEnvPair: (id, key) => `${ENDPOINT}/envs/env/remove/${id}/${key}`,
     getEnv: (id) => `${ENDPOINT}/envs/env/${id}`
 }
-export default URL = {
+let URLS;
+export default URLS = {
     ...projectURL,
     ...envURL
 }

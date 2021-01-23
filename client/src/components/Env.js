@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles} from '@material-ui/core/styles';
 import IconButton from "@material-ui/core/IconButton";
-import {Copy} from "react-feather";
+import {Copy,Download} from "react-feather";
 import {PlusCircle,MinusCircle} from "react-feather";
 import API from '../api';
 import { useParams } from 'react-router-dom';
@@ -47,6 +47,19 @@ export default function Env(){
     const handleChange = async () => {
       await API.addEnv(id,{variables})
     }
+    const handleDownload = async () => {
+      let envString = "";
+      variables.forEach(variable => {
+        envString+=variable.key+"="+variable.value+"\n";
+      })
+      const element = document.createElement("a");
+      const file = new Blob([envString]);
+      window.saveAs(file,'.env')
+      element.href = window.URL.createObjectURL(file);
+      element.download = ".env";
+      document.body.appendChild(element);
+      element.click();
+    }
     return (
         <div className={classes.root}>
             <span style={{ color: 'black',textTransform:"capitalize",fontWeight:600,fontSize:28}}>Your environment for Meraki</span>
@@ -57,7 +70,10 @@ export default function Env(){
                 <span>
                 <text>https://promanage.com/32545943/39489i5095/env</text>
                 <IconButton aria-label="copy" style={{marginLeft:"auto"}} >
-                <Copy color="#000" size={20} />
+                  <Copy color="#000" size={20} />
+                </IconButton>
+                <IconButton aria-label="copy" style={{marginLeft:"auto"}} onClick={handleDownload} >
+                  <Download color="#000" size={20} />
                 </IconButton>
                 </span>
             </div>
