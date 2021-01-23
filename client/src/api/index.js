@@ -8,6 +8,7 @@ const Projects = {
     createProject : async (id,params) => (await axios.post(URL.createProject(),params)).data,
     getProjectForUser : async (id) => (await axios.get(URL.getProjects(id))).data,
 }
+
 let API;
 export default API = {
     ...Projects
