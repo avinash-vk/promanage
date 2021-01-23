@@ -158,7 +158,6 @@ const deleteEnvPair = async (req,res) => {
             else{
                 newvar.push(value);
             }
-            console.log(newvar);
         }
         try{
             variable = await env.doc(id).set({
