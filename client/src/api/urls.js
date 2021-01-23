@@ -1,6 +1,6 @@
 const production = false;
 
-const ENDPOINT = production ? "https://promanage-api.herokuapp.com/api/v1" : "http://localhost:6969/api/v1";
+const ENDPOINT = process.env.PRODUCTION ? "https://promanage-api.herokuapp.com/api/v1" : "http://localhost:6969/api/v1";
 
 const projectURL = {
     project:(id) => `${ENDPOINT}/projects/project/${id}`,
