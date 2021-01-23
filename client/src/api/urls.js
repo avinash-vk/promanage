@@ -8,6 +8,13 @@ const projectURL = {
     createProject:() => `${ENDPOINT}/projects/new`,
 }
 
+const envURL = {
+    addEnv: (id) => `${ENDPOINT}/envs/env/${id}`,
+    deleteEnv: (id) => `${ENDPOINT}/envs/env/remove/${id}`,
+    deleteEnvPair: (id, key) => `${ENDPOINT}/envs/env/remove/${id}/${key}`,
+    getEnv: (id) => `${ENDPOINT}/envs/env/${id}`
+}
 export default URL = {
     ...projectURL,
+    ...envURL
 }
