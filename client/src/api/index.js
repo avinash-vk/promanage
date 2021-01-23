@@ -9,7 +9,13 @@ const Projects = {
     getProjectForUser : async (id) => (await axios.get(URL.getProjects(id))).data,
 }
 
+const Env = {
+    getEnv : async (id) => (await axios.get(URL.getEnv(id))).data,
+    deleteEnv : async (id, key) => (await axios.put(URL.getEnv(id,key))).data,
+}
+
 let API;
 export default API = {
-    ...Projects
+    ...Projects,
+    ...Env
 }
