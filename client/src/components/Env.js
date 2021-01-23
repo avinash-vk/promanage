@@ -4,17 +4,21 @@ import { Typography } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import {Copy} from "react-feather";
 import {PlusCircle,MinusCircle} from "react-feather";
+
 const useStyles = makeStyles(() => ({
     root:{
         borderRadius:20,
         backgroundColor:"white",
         zIndex:2,
         boxShadow: "1px 2px 10px rgba(0,0,0,0.25)",
-        padding:"5%"
+        padding:"5%",
+        width:"60%",
+        height:"60%"
     },
     child:{
         alignSelf:"center",
-        marginTop:20
+        marginTop:20,
+        justifyContent:'center',
     },
     url:{
         marginTop:20,
@@ -138,18 +142,19 @@ class DynamicTable extends React.Component {
           </thead>
         </table>
         {this.renderRows()}
-        <hr/>
         <input
           type="text"
           value={this.state.key}
           onChange={this.updateKey.bind(this)}
           style={{width:"30%",padding:10}}
+          placeholder="Environment variable"
         />
         <input
           type="text"
           value={this.state.value}
           onChange={this.updateValue.bind(this)}
           style={{width:"50%",padding:10}}
+          placeholder="Value"
         />
         <IconButton aria-label="add"  onClick={this.handleClick.bind(this)} ><PlusCircle/></IconButton>
       </div>
