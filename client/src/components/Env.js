@@ -31,7 +31,7 @@ const useStyles = makeStyles(() => ({
         fontSize:15
     }
 }));
-export default function Env({project}){
+export default function Env(){
     const classes = useStyles();
     const { id } = useParams();
     const [ variables, setVariables ] = React.useState([]);
@@ -41,11 +41,17 @@ export default function Env({project}){
           });
     },[])
 
+    const handleDelete = async (key) => {
+      await API.deleteEnv(id,key);
+    }
+    const handleChange = async () => {
+      await API.addEnv(id,{variables})
+    }
     return (
         <div className={classes.root}>
             <span style={{ color: 'black',textTransform:"capitalize",fontWeight:600,fontSize:28}}>Your environemt for Meraki</span>
            <div className={classes.child}>
-             <DynamicTable variables = {variables} setVariables = {setVariables} />
+             <DynamicTable variables = {variables} setVariables = {setVariables} handleDelete={handleDelete} handleChange={handleChange} />
           </div> 
             <div className={classes.url}>
                 <span>
@@ -78,29 +84,32 @@ class DynamicTable extends React.Component {
   }
   handleClick() {
     var items = this.props.variables;
-    if (this.state.key == "" || this.state.key == "")
+    if (this.state.key == "" || this.state.key == ""){
+      this.props.setVariables(items);
       return;
+    }
     items.push({key:this.state.key,value:this.state.value});
     this.setState({
       key:"",
       value:""
     });
-    this.setVariables(items);
+    this.props.handleChange();
   }
   handleKeyChanged(i, event) {
     var items = this.props.variables;
     items[i].key = event.target.value;
-    this.setVariables(items)
+    this.props.setVariables(items)
   }
   handleValueChanged(i, event) {
     var items = this.props.variables;
     items[i].value = event.target.value;
-    this.setVariables(items)
+    this.props.setVariables(items);
   }
-  handleItemDeleted(i) {
+  handleItemDeleted(i, event) {
     var items = this.props.variables;
-    items.splice(i, 1);
-    this.setVariables(items)
+    let x = items.splice(i, 1);
+    this.props.handleDelete(x[0].key);
+    this.props.setVariables(items);
   }
   renderRows() {
     var context = this;

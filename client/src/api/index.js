@@ -11,7 +11,8 @@ const Projects = {
 
 const Env = {
     getEnv : async (id) => (await axios.get(URL.getEnv(id))).data,
-    deleteEnv : async (id, key) => (await axios.put(URL.getEnv(id,key))).data,
+    deleteEnv : async (id, key) => (await axios.put(URL.deleteEnvPair(id,key))).data,
+    addEnv : async (id,params) => (await axios.put(URL.addEnv(id),params)).data,
 }
 
 let API;
