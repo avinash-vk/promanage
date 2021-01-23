@@ -49,7 +49,7 @@ export default function Env(){
     }
     return (
         <div className={classes.root}>
-            <span style={{ color: 'black',textTransform:"capitalize",fontWeight:600,fontSize:28}}>Your environemt for Meraki</span>
+            <span style={{ color: 'black',textTransform:"capitalize",fontWeight:600,fontSize:28}}>Your environment for Meraki</span>
            <div className={classes.child}>
              <DynamicTable variables = {variables} setVariables = {setVariables} handleDelete={handleDelete} handleChange={handleChange} />
           </div> 
