@@ -10,11 +10,19 @@ const menus = {
   `,
 
   get:`
-    //....
+    ${chalk.blueBright('get')} ................ get your env for your specified project
+    ${chalk.redBright('\nSyntax')}
+    ${chalk.greenBright('promanage get')}
   `,
 
   config: `//...
         `,
+
+  version:`
+    ${chalk.blueBright('version')} ................ show package version
+    ${chalk.redBright('\nSyntax')}
+    ${chalk.greenBright('promanage --version')} or ${chalk.greenBright('promanage -v')}
+  `,
 }
 
 export const help = (args) => {
