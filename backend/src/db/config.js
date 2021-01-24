@@ -8,3 +8,18 @@ admin.initializeApp({
 
 const db = admin.firestore();
 module.exports = db
+
+async function decodeIDToken(req, res, next) {
+  if (req.headers?.authorization?.startsWith('Bearer ')) {
+    const idToken = req.headers.authorization.split('Bearer ')[1];
+    try {
+      const decodedToken = await admin.auth().verifyIdToken(idToken);
+      req.user = decodedToken;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  next();
+}
+
+module.exports.authenticate = decodeIDToken;

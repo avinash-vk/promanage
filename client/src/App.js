@@ -21,12 +21,7 @@ function App() {
   React.useEffect(() => {
     auth().onAuthStateChanged(async (user) => {
       if(user){
-        const { displayName, email, uid }  = user;
-        setUser({
-          displayName,
-          email,
-          uid
-        })
+        setUser(user)
       }
       else {
         setUser(null);
