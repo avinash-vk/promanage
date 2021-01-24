@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-let production=true;
+let production=false;
 const ENDPOINT = production ? "https://promanage-api.herokuapp.com/api/v1" : "http://localhost:6969/api/v1";
 
 const API = {

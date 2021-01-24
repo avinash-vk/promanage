@@ -17,7 +17,7 @@ export const get = async (args) => {
     let projects = (await API.getProjects(id)).data.projects;
 
     let choices = projects.map(project => project.title);
-    let ids = projects.reduce((res,cur) => ({...res,[cur.title]:{...cur}}),{});
+    let ids = projects.reduce((res,cur) => ({...res,[cur.title]:cur.id}),{});
     inquirer.prompt([
         {
             type:'list',
@@ -27,17 +27,23 @@ export const get = async (args) => {
         }
     ]).then(async answers => {
         console.info("Downloading env variables for ",answers.project);
-        let project = ids[answers.project];
-        let envString = "";
-        if (!project.env){
-            console.log("No env variables defined for this project! Update it at promanage")
+        let project_id = ids[answers.project];
+        try{
+            let env =  (await API.getEnv(project_id)).data.variables; 
+            let envString = "";
+            if (!env){
+                console.log("No env variables defined for this project! Update it at promanage")
+            }
+            else {
+                env.forEach(variable => {
+                    envString+=variable.key+"="+variable.value+"\n";
+                })
+                await writeEnv(envString);
+                console.info("✅ Done");
+            }
         }
-        else {
-            project.env.forEach(variable => {
-                envString+=variable.key+"="+variable.value+"\n";
-            })
-            await writeEnv(envString);
-            console.info("✅ Done");
+        catch(err){
+            console.log("You are not authorized to view this project! Contact your user")
         }
     })
 }
