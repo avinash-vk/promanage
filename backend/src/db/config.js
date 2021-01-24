@@ -10,7 +10,7 @@ const db = admin.firestore();
 module.exports = db
 
 async function decodeIDToken(req, res, next) {
-  if (req.headers?.authorization?.startsWith('Bearer ')) {
+  if (req.headers.authorization? req.headers.authorization.startsWith('Bearer '):false) {
     const idToken = req.headers.authorization.split('Bearer ')[1];
     try {
       const decodedToken = await admin.auth().verifyIdToken(idToken);
