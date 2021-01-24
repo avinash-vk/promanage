@@ -10,9 +10,9 @@ const Projects = {
 }
 
 const Env = {
-    getEnv : async (id) => (await axios.get(URLS.getEnv(id))).data,
-    deleteEnv : async (id, key) => (await axios.put(URLS.deleteEnvPair(id,key))).data,
-    addEnv : async (id,params) => (await axios.put(URLS.addEnv(id),params)).data,
+    getEnv : async (id,token) => { console.log(token);return (await axios.get(URLS.getEnv(id),{headers:{Authorization: `Bearer ${token}`}})).data},
+    deleteEnv : async (id, key, token) => (await axios.put(URLS.deleteEnvPair(id,key),{headers:{Authorization: `Bearer ${token}`}})).data,
+    addEnv : async (id, params, token) => (await axios.put(URLS.addEnv(id),params,{headers:{Authorization: `Bearer ${token}`}})).data,
 }
 
 let API;

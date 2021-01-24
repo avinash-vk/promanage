@@ -5,6 +5,7 @@ import {Copy,Download} from "react-feather";
 import {PlusCircle,MinusCircle} from "react-feather";
 import API from '../api';
 import { useParams } from 'react-router-dom';
+import { AuthContext } from '../firebase/provider';
 
 const useStyles = makeStyles(() => ({
     root:{
@@ -35,17 +36,22 @@ export default function Env(){
     const classes = useStyles();
     const { id } = useParams();
     const [ variables, setVariables ] = React.useState([]);
+    const { user } = React.useContext(AuthContext);
+    const [token,setToken] = React.useState("");
     React.useEffect(()=>{
-        API.getEnv(id).then(data => {
+        user.getIdToken().then(token => {
+          API.getEnv(id,token).then(data => {
             setVariables(data.variables);
-          });
+            setToken(token);
+          })
+        })
     },[])
-
+    
     const handleDelete = async (key) => {
-      await API.deleteEnv(id,key);
+      await API.deleteEnv(id,key,token);  
     }
     const handleChange = async () => {
-      await API.addEnv(id,{variables})
+      await API.addEnv(id,{variables},token)
     }
     const handleDownload = async () => {
       let envString = "";
