@@ -1,0 +1,10 @@
+{
+  "name": "promanage-cli",
+  "version": "1.0.0",
+  "description": "A cli to get your env variables",
+  "main": "index.js",
+  "bin":{
+    "promanage":"./index.js"
+  },
+  "license": "MIT"
+}
