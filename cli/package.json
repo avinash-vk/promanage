@@ -8,6 +8,8 @@
   },
   "license": "MIT",
   "dependencies": {
+    "chalk": "^4.1.0",
+    "conf": "^9.0.0",
     "esm": "^3.2.25",
     "minimist": "^1.2.5"
   }
