@@ -8,6 +8,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.21.1",
     "chalk": "^4.1.0",
     "conf": "^9.0.0",
     "esm": "^3.2.25",
