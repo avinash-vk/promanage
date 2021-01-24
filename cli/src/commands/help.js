@@ -9,8 +9,7 @@ const menus = {
     ${chalk.blueBright('help')} ............... show help menu for a command
   `,
 
-  get:`
-    ${chalk.blueBright('get')} ................ get your env for your specified project
+  get:`\n${chalk.blueBright('get')} : get your env for your specified project
     ${chalk.redBright('\nSyntax')}
     ${chalk.greenBright('promanage get')}
   `,
@@ -18,8 +17,7 @@ const menus = {
   config: `//...
         `,
 
-  version:`
-    ${chalk.blueBright('version')} ................ show package version
+  version:`\n${chalk.blueBright('version')} : show package version
     ${chalk.redBright('\nSyntax')}
     ${chalk.greenBright('promanage --version')} or ${chalk.greenBright('promanage -v')}
   `,
