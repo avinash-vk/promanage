@@ -75,4 +75,4 @@ yarn dev
 
 [promanage]:https://promanage.online/
 [lol]:[www.lol.com]
-[postman]:[https://trello.com/c/KKKnLlt0]
+[postman]:https://www.postman.com/kratos12/workspace/promanage
