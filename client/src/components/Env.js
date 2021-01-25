@@ -29,7 +29,13 @@ const useStyles = makeStyles(() => ({
         backgroundColor:"#F2F2F2",
         borderRadius:10,
         padding:'2%',
-        fontSize:15
+        fontSize:15,
+        display:"flex",
+        flexDirection:"row",
+        alignItems:"center"
+    },
+    buttons:{
+      marginLeft:"auto"
     }
 }));
 export default function Env(){
@@ -60,11 +66,13 @@ export default function Env(){
       })
       const element = document.createElement("a");
       const file = new Blob([envString]);
-      window.saveAs(file,'.env')
       element.href = window.URL.createObjectURL(file);
       element.download = ".env";
       document.body.appendChild(element);
       element.click();
+    }
+    const handleCopy = (e) => {
+      navigator.clipboard.writeText(user.uid);
     }
     return (
         <div className={classes.root}>
@@ -73,15 +81,16 @@ export default function Env(){
              <DynamicTable variables = {variables} setVariables = {setVariables} handleDelete={handleDelete} handleChange={handleChange} />
           </div> 
             <div className={classes.url}>
-                <span>
-                <text>https://promanage.com/32545943/39489i5095/env</text>
-                <IconButton aria-label="copy" style={{marginLeft:"auto"}} >
+                
+                <text>Click copy to copy your user creds (promanage-cli) or download your env file</text>
+                <div className={classes.buttons}>
+                <IconButton aria-label="copy" onClick={handleCopy}>
                   <Copy color="#000" size={20} />
                 </IconButton>
-                <IconButton aria-label="copy" style={{marginLeft:"auto"}} onClick={handleDownload} >
+                <IconButton aria-label="copy" style={{}} onClick={handleDownload} >
                   <Download color="#000" size={20} />
                 </IconButton>
-                </span>
+                </div>
             </div>
         </div>
     )
