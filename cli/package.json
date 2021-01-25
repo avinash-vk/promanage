@@ -12,7 +12,6 @@
     "chalk": "^4.1.0",
     "conf": "^9.0.0",
     "esm": "^3.2.25",
-    "firebase": "^8.2.4",
     "fs": "^0.0.1-security",
     "inquirer": "^7.3.3",
     "minimist": "^1.2.5"
