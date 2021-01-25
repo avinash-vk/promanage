@@ -7,6 +7,7 @@ const Projects = {
     deleteProject : async (id) => (await axios.delete(URLS.project(id))).data,
     createProject : async (id,params) => (await axios.post(URLS.createProject(),params)).data,
     getProjectForUser : async (id) => (await axios.get(URLS.getProjects(id))).data,
+    importProject : async (username) => (await axios.get(URLS.importProject(username))).data
 }
 
 const Env = {
