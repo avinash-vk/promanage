@@ -39,7 +39,6 @@ const addEnv = async (req,res) => {
         else{
             //Need to append to existing list of variables for project
             const old = variable.data().variables;
-            console.log(...req.body.variables)
             /*
             let newvar = []
             //console.log(old);
@@ -85,7 +84,6 @@ const getProjectEnv = async (req, res) => {
     const project = await projects.doc(id).get()
     if (!project.exists){
         res.status(400);
-        console.log("OOps no prokject found")
         res.json({
             error: "No such project found"
         });
@@ -100,7 +98,6 @@ const getProjectEnv = async (req, res) => {
     }
     else {
         let data = variable.data();
-        console.log(data.variables)
         res.status(200);
         res.json({
             variables: data.variables
