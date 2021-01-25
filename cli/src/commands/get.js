@@ -1,6 +1,8 @@
 import inquirer from 'inquirer';
 import { promises as fs } from 'fs';
 import API from '../api'; 
+import Conf from 'conf';
+const config = new Conf();
 
 const writeEnv = async (envString) => {
     try {
@@ -12,8 +14,11 @@ const writeEnv = async (envString) => {
 
 export const get = async (args) => {
     // TODO AUTHENTICATE THIS BRO
-    const id = "9Jka8ovtPja2nwQCnRDyf5LtIqe2";
-
+    const id = config.get("id"); //9Jka8ovtPja2nwQCnRDyf5LtIqe2";
+    if (!id){
+        console.log("Login to promanage-cli by specifying `promanage login`!");
+        return;
+    }
     let projects = (await API.getProjects(id)).data.projects;
 
     let choices = projects.map(project => project.title);
@@ -29,7 +34,7 @@ export const get = async (args) => {
         console.info("Downloading env variables for ",answers.project);
         let project_id = ids[answers.project];
         try{
-            let env =  (await API.getEnv(project_id)).data.variables; 
+            let env =  (await API.getEnv(project_id)).variables; 
             let envString = "";
             if (!env){
                 console.log("No env variables defined for this project! Update it at promanage")
@@ -43,6 +48,7 @@ export const get = async (args) => {
             }
         }
         catch(err){
+            //console.log(err.message)
             console.log("You are not authorized to view this project! Contact your user")
         }
     })

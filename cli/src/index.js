@@ -4,6 +4,8 @@ import { get } from './commands/get';
 import { version } from './commands/version';
 import { help } from './commands/help';
 import { config } from './commands/config';
+import { login } from './commands/login';
+import { logout } from './commands/logout';
 
 export const main = async (args) => {
     args = minimist(args.slice(2));
@@ -32,6 +34,14 @@ export const main = async (args) => {
 
         case 'config':
             config(args);
+            break;
+
+        case 'login':
+            login(args);
+            break;
+
+        case 'logout':
+            logout(args);
             break;
 
         default:
