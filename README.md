@@ -1,7 +1,7 @@
 
 <p align="center">
   <br />
- 
+ <img src="https://github.com/avinash-vk/promanage/blob/main/Frame%204.png"></img>
 </p>
 
 # What's special about Promanage
