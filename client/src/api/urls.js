@@ -9,6 +9,14 @@ const projectURL = {
     importProject :(username) => `https://api.github.com/users/${username}/repos`
 }
 
-export default URL = {
+const envURL = {
+    addEnv: (id) => `${ENDPOINT}/envs/env/${id}`,
+    deleteEnv: (id) => `${ENDPOINT}/envs/env/remove/${id}`,
+    deleteEnvPair: (id, key) => `${ENDPOINT}/envs/env/remove/${id}/${key}`,
+    getEnv: (id) => `${ENDPOINT}/envs/env/${id}`
+}
+let URLS;
+export default URLS = {
     ...projectURL,
+    ...envURL
 }

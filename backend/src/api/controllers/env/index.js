@@ -4,6 +4,10 @@ const projects = db.collection("projects");
 const env = db.collection("env");
 
 const addEnv = async (req,res) => {
+    const user = req['user'];
+    if (!user) { 
+        return res.status(403).send('User unauthorized');
+    }
     const { id } = req.params;
     let project = await projects.doc(id).get();
     if (!project.exists){
@@ -35,7 +39,6 @@ const addEnv = async (req,res) => {
         else{
             //Need to append to existing list of variables for project
             const old = variable.data().variables;
-            console.log(...req.body.variables)
             /*
             let newvar = []
             //console.log(old);
@@ -70,6 +73,13 @@ const addEnv = async (req,res) => {
 }
 
 const getProjectEnv = async (req, res) => {
+    //uncomment post authentication
+    /*const user = req['user'];
+
+    if (!user) { 
+        return res.status(403).send('User unauthorized');
+    }*/
+    console.log("HEREEEE")
     const { id } = req.params;
     const project = await projects.doc(id).get()
     if (!project.exists){
@@ -88,7 +98,6 @@ const getProjectEnv = async (req, res) => {
     }
     else {
         let data = variable.data();
-        //console.log(data.variables)
         res.status(200);
         res.json({
             variables: data.variables
@@ -97,6 +106,11 @@ const getProjectEnv = async (req, res) => {
     }
 }
 const deleteEnv = async (req,res) => {
+    const user = req['user'];
+
+    if (!user) { 
+        return res.status(403).send('User unauthorized');
+    }
     const { id} = req.params;
     const variable = await env.doc(id).get();
     if (!variable.exists){
@@ -139,6 +153,11 @@ const deleteEnv = async (req,res) => {
 }
 
 const deleteEnvPair = async (req,res) => {
+    const user = req['user'];
+
+    if (!user) { 
+        return res.status(403).send('User unauthorized');
+    }
     const {id,key} = req.params
     let variable = await env.doc(id).get();
     if (!variable.exists){
@@ -158,7 +177,6 @@ const deleteEnvPair = async (req,res) => {
             else{
                 newvar.push(value);
             }
-            console.log(newvar);
         }
         try{
             variable = await env.doc(id).set({

@@ -113,12 +113,17 @@ const useCardStyles =(active)=>makeStyles(()=>({
         },
         border:active?"2px solid #FF8400":""
     },
+    text:{
+        fontFamily:"Poppins",
+        fontWeight:500,
+        fontSize:18
+    },
 }))()
 const SimpleCard = ({repo,active,selectRepo}) => {
     const classes = useCardStyles(active);
     return (
         <Card className={classes.root} onClick={selectRepo}>
-            <Typography>
+            <Typography className={classes.text}>
                 {repo.name || ""}
             </Typography>
         </Card>
@@ -127,7 +132,7 @@ const SimpleCard = ({repo,active,selectRepo}) => {
 export const GithubModal = ({open, handleClose}) => {
     const [logged,setLog] = React.useState(0);
     const classes = modalStyles();
-    const [username,setUsername] =React.useState("sanskritip");
+    const [username,setUsername] =React.useState("");
     const handleLogin = () =>{
         setLog(!logged);
     }

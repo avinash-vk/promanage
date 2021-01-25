@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Home, Info, Settings, LogOut } from 'react-feather';
 import { useHistory } from 'react-router-dom';
 import { signOut } from '../pages/Auth/methods';
+import { AuthContext} from '../firebase/provider';
 
 const Logo = () => {
     return (
@@ -57,7 +58,7 @@ const Sidebar = () => {
     const classes = sidebarStyles();
     const [index, setIndex] = React.useState(0);
     const history = useHistory();
-
+    const { user } = React.useContext(AuthContext);
     return (
         <div className = {classes.root}>
             <List style = {{ height:"100%" }}>
@@ -107,7 +108,7 @@ const Sidebar = () => {
                         }
                     }
                 >
-                    <Avatar src="https://images.unsplash.com/photo-1610767540785-96b4c65de306" alt="You" />
+                    <Avatar src={user.photoURL? user.photoURL:"https://images.unsplash.com/photo-1610767540785-96b4c65de306"} alt="You" />
                     <Indicator active={index===3} />
                 </ListItem>
                 <ListItem 
