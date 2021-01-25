@@ -9,7 +9,7 @@ admin.initializeApp({
 const db = admin.firestore();
 module.exports = db
 
-async function decodeIDToken(req, res, next) {/*
+async function decodeIDToken(req, res, next) {
   if (req.headers.authorization? req.headers.authorization.startsWith('Bearer '):false) {
     const idToken = req.headers.authorization.split('Bearer ')[1];
     try {
@@ -18,7 +18,7 @@ async function decodeIDToken(req, res, next) {/*
     } catch (err) {
       console.log(err);
     }
-  }*/
+  }
   next();
 }
 
