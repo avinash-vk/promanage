@@ -1,10 +1,10 @@
 
 <p align="center">
   <br />
- <img src="https://github.com/avinash-vk/promanage/blob/main/Frame%204.png"></img>
+ <img src="https://github.com/avinash-vk/promanage/blob/main/promanage-logo.png"></img>
 </p>
 
-# What's special about Promanage
+## What's special about Promanage
 
 Ever got flustered because you can't keep track of all your projects? Do you want to be part of a commmunity where you can work with other developers, collaborate, ideate and showcase all those amazing projects you have been working on? If these are things you have always wanted Promanage is just the place for you! 
 
@@ -22,7 +22,7 @@ Ever got flustered because you can't keep track of all your projects? Do you wan
 
 It helps you to easily access your **projects**, no matter where they are located. _Don't miss those important projects anymore_. 
 
-# Project Manager
+## Project Manager
 
 You can define your own **Projects** , or choose from a wide range of starter broiler plated for *React* , *Flask* , *MongoDB* and many other technologies. (Future implementation)
 * Update project details to keep your fellow colloborators in synch woth your work.
