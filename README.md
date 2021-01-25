@@ -66,13 +66,13 @@ yarn dev
 
 ## Check it out at :
 
-[promanage-1a9a5.web.app/][promanage]
+[https://promanage.online/][promanage]
 
 
 ## License
 
 [MIT](LICENSE.md) &copy; Promanage.
 
-[promanage]:https://promanage-1a9a5.web.app/
+[promanage]:https://promanage.online/
 [lol]:[www.lol.com]
-[postman]:[www.lol.com]
+[postman]:[https://trello.com/c/KKKnLlt0]
