@@ -14,8 +14,8 @@ export const login = (args) => {
         try{
             let res = await API.getUser(answers.creds);
             console.log("Logged in as",res.data.username);
-            conf.set("username",res.data.username);
-            conf.set("id", res.data.id);
+            config.set("username",res.data.username);
+            config.set("id", res.data.id);
         }
         catch(err){
             console.log("Oops enter a valid code!")
