@@ -10,6 +10,8 @@ import { ColorButton } from '../components/Button.js';
 import Env from '../components/Env'
 import { AuthContext } from '../firebase/provider';
 import API from "../api";
+import {ReactComponent as UnderDev} from '../assets/underDev.svg';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexDirection:"row",
@@ -69,10 +71,19 @@ const ProjectDisplay = () => {
         </div>
   )
 }
+
+const Board = () => {
+  return (
+    <div style={{display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"column"}}>
+            <UnderDev style={{height:500,width:500}} />
+            Under Development, we will be back ASAP
+      </div>
+  )
+}
 const RenderComponent = ({value}) => {
   let component;
   if(value === 0) component = <ProjectDisplay />;
-  else component = <Env />;
+  else component = <Board />;
   return (
       <>{component}</>
   )
