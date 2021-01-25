@@ -39,7 +39,6 @@ const addEnv = async (req,res) => {
         else{
             //Need to append to existing list of variables for project
             const old = variable.data().variables;
-            console.log(...req.body.variables)
             /*
             let newvar = []
             //console.log(old);
@@ -74,11 +73,13 @@ const addEnv = async (req,res) => {
 }
 
 const getProjectEnv = async (req, res) => {
-    const user = req['user'];
+    //uncomment post authentication
+    /*const user = req['user'];
 
     if (!user) { 
         return res.status(403).send('User unauthorized');
-    }
+    }*/
+    console.log("HEREEEE")
     const { id } = req.params;
     const project = await projects.doc(id).get()
     if (!project.exists){
@@ -97,7 +98,6 @@ const getProjectEnv = async (req, res) => {
     }
     else {
         let data = variable.data();
-        //console.log(data.variables)
         res.status(200);
         res.json({
             variables: data.variables

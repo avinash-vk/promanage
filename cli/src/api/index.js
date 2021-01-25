@@ -6,6 +6,7 @@ const ENDPOINT = production ? "https://promanage-api.herokuapp.com/api/v1" : "ht
 const API = {
     getEnv : async (id) => (await axios.get(`${ENDPOINT}/envs/env/${id}`)).data,
     getProjects : async (id) => (await axios.get(`${ENDPOINT}/projects/user/${id}`)).data,
+    getUser : async (id) => (await axios.get(`${ENDPOINT}/users/${id}`)).data
 }
 
 export default API;
