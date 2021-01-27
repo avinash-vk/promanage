@@ -1,4 +1,4 @@
-const production = false;
+const production = true;
 
 const ENDPOINT = process.env.PRODUCTION ? "https://promanage-api.herokuapp.com/api/v1" : "http://localhost:6969/api/v1";
 
